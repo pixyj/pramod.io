@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    
+
+    {% for post in posts %}
+        <a class="blog-heading-link" href="{{ post.url }}">
+            <h3>{{ post.title }}</h3>
+            <span class="blog-post-created-date"> {{ post.created | date }} </span>
+        </a>
+    {% endfor %}
+
+{% endblock %}
+
+{% block script %}
+    var tab = "blog";
+{% endblock %}

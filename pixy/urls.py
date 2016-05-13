@@ -17,10 +17,13 @@ from django.conf.urls import url
 from django.contrib import admin
 
 from home.views import home
-from blog.views import get_blog_post
+from blog.views import get_blog_post, blog_home
+from contact.views import contact
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^blog/(?P<slug>[\w\d\-]+)/$', get_blog_post),
+    url(r'^blog/$', blog_home),
+    url(r'^contact/$', contact),
     url(r'^$', home)
 ]

@@ -33,8 +33,13 @@
   margin-right: 20%;
 }
 
-#blog-post-created-date {
+.blog-heading-link {
+  margin-bottom: 10px;
+  text-decoration: none;
+}
+#blog-post-created-date, .blog-post-created-date {
   font-weight: bold;
+  color: black;
 }
 
 blockquote::before {
@@ -49,6 +54,10 @@ blockquote::after {
   margin-left: 10px;
 }
 
+#contact-content {
+  margin-left: 20%;
+  margin-right: 20%;
+}
 
 /* END OF MY STUFF */
 
@@ -61,7 +70,9 @@ pre {
   padding: 1rem;
   color: black;
   font-size: 1.1rem;
+  overflow-x: scroll;
 }
+
 
 @media(max-width: 768px) {
   .pixy-content {

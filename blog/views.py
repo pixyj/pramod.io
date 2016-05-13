@@ -10,3 +10,8 @@ def get_blog_post(request, slug):
     if post.is_not_published:
         raise Http404
     return render(request, "post.html", {"post": post})
+
+
+def blog_home(request):
+    posts = Post.objects.filter(is_published=True)
+    return render(request, "blog_home.html", {"posts": posts})
