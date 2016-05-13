@@ -27,6 +27,10 @@
   color: white !important;
 }
 
+.pixy-active-tab {
+  border-bottom: 4px solid #ff4081 !important;
+}
+
 .pixy-content {
   display: block;
   margin-left: 20%;
