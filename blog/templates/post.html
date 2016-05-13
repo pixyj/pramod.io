@@ -3,9 +3,13 @@
 {% block content %}
 
     <h3 id="blog-post-title">
-        {{ post.title }}
+        <a href="{{ post.url }}">{{ post.title }} </a>
     </h3>
+
+    <span id="blog-post-created-date"> {{ post.created | date }} </span>
+
     <div id="blog-post-content">
         {{ post.html_content | safe }}
     </div>
+
 {% endblock %}

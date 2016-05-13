@@ -1,54 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Introducing Lollipop, a sweet new take on Android.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>Android</title>
 
-<!DOCTYPE html>
-<html>
-
-    <head>
-
-        <meta charset="UTF-8" />
-
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <meta name="description" content="Pramod Lakshmanan">
-
-        <link rel="icon" type="image/png" href="/dist/favicon.png">
-        
-        <link rel="stylesheet" type="text/css" href="/static/hamburgler.css">
-        <link rel="stylesheet" type="text/css" href="/static/main.css">
-        
-    </head>
-
-    <body>       
-
-            <a href="/" id="logo">
-                P
-            </a>
-
-            <div class="mobilenav">
-                <ul id="site-links">
-                      <li><a href="/projects/">Projects</a></li>
-                      <li><a href="/blog/">Blog</a></li>
-                      <li><a href="/about/">About</a></li>
-                      <li><a href="/contact/">Contact</a></li>
-                </ul>
-            </div>
-
-            <a href="javascript:void(0)" class="icon" id="hamburger-container">
-              <div class="hamburger">
-                <div class="menui top-menu"></div>
-                <div class="menui mid-menu"></div>
-                <div class="menui bottom-menu"></div>
-              </div>
-            </a>
-
-
-        <div id="page-content">
-            {% block content %}
-            {% endblock %}
+    <!-- Page styles -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.min.css">
+    <link rel="stylesheet" href="/static/styles.css">
+  </head>
+  <body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+      <div class="android-header mdl-layout__header mdl-layout__header--waterfall">
+        <div class="mdl-layout__header-row">
+          <span class="android-title mdl-layout-title">
+            <a href="/" class="pixy-title">Pramod</a>
+          </span>
+          <!-- Add spacer, to align navigation to the right in desktop -->
+          <div class="android-header-spacer mdl-layout-spacer"></div>
+          <!-- Navigation -->
+          <div class="android-navigation-container">
+            <nav class="android-navigation mdl-navigation">
+              <a class="mdl-navigation__link mdl-typography--text-uppercase" href="/projects/">Projects</a>
+              <a class="mdl-navigation__link mdl-typography--text-uppercase" href="/blog/">Blog</a>
+              <a class="mdl-navigation__link mdl-typography--text-uppercase" href="/about/">About</a>
+              <a class="mdl-navigation__link mdl-typography--text-uppercase" href="/contact/">Contact</a>
+            </nav>
+          </div>
+          <span class="android-mobile-title mdl-layout-title">
+            <a href="/" class="pixy-title">Pramod</a>
+          </span>
         </div>
+      </div>
 
-        <script src="/static/jq.js"></script>
-        <script src="/static/fastclick.min.js"></script>
-        <script src="/static/hamburgler.js"></script>
-    </body>
+      <div class="android-drawer mdl-layout__drawer">
+        <span class="mdl-layout-title">
+          <a href="/" class="pixy-title pixy-mobile-title">Pramod</a>
+        </span>
+        <nav class="mdl-navigation">
+          <a class="mdl-navigation__link" href="/projects/">Projects</a>
+          <a class="mdl-navigation__link" href="/blog/">Blog</a>
+          <a class="mdl-navigation__link" href="/about/">About</a>
+          <a class="mdl-navigation__link" href="/contact/">Contact</a>
+          <div class="android-drawer-separator"></div>
+        </nav>
+      </div>
 
+      <div class="android-content mdl-layout__content pixy-content">
+
+      {% block content %}
+
+      {% endblock %}
+
+      </div>
+    </div>
+    <script src="https://code.getmdl.io/1.1.3/material.min.js"></script>
+  </body>
 </html>

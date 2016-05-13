@@ -51,7 +51,7 @@ class Post(models.Model):
         """
         Get blog post url
         """
-        return "/blog/{}".format(self.slug)
+        return "/blog/{}/".format(self.slug)
 
     # Other public instance methods
     def save(self, *args, **kwargs):
