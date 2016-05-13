@@ -1,0 +1,56 @@
+a {
+    text-decoration:none;
+}
+
+#page-content {
+    margin-top: 60px;
+    margin-left: 15%;
+    margin-right: 15%;
+}
+
+@media(max-width: 992px) {
+    #page-content {
+        margin-left: 5%;
+        margin-right: 5%;
+    }
+}
+
+@media(min-width: 768px) {
+    #hamburger-container {
+        visibility: hidden;
+    }
+
+    #site-links {
+        white-space:nowrap;
+        position: fixed;
+        top: 0;
+        right: 0;
+        padding-right: 20px;
+        padding-top: 9px;
+    }
+
+    #site-links > li {
+        display: inline;
+        margin-left: 15px;
+    }
+}
+
+#site-links > li {
+    font-size: 20px;
+}
+
+#logo {
+    position: fixed;
+    height: 32px;
+    line-height: 32px;
+    font-size: 32px;
+    padding: 9px;
+    top: 0;
+    left: 0;
+    color: #2196F3;
+}
+
+
+
+
+

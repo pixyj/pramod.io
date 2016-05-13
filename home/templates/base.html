@@ -1,0 +1,54 @@
+
+<!DOCTYPE html>
+<html>
+
+    <head>
+
+        <meta charset="UTF-8" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <meta name="description" content="Pramod Lakshmanan">
+
+        <link rel="icon" type="image/png" href="/dist/favicon.png">
+        
+        <link rel="stylesheet" type="text/css" href="/static/hamburgler.css">
+        <link rel="stylesheet" type="text/css" href="/static/main.css">
+        
+    </head>
+
+    <body>       
+
+            <a href="/" id="logo">
+                P
+            </a>
+
+            <div class="mobilenav">
+                <ul id="site-links">
+                      <li><a href="/projects/">Projects</a></li>
+                      <li><a href="/blog/">Blog</a></li>
+                      <li><a href="/about/">About</a></li>
+                      <li><a href="/contact/">Contact</a></li>
+                </ul>
+            </div>
+
+            <a href="javascript:void(0)" class="icon" id="hamburger-container">
+              <div class="hamburger">
+                <div class="menui top-menu"></div>
+                <div class="menui mid-menu"></div>
+                <div class="menui bottom-menu"></div>
+              </div>
+            </a>
+
+
+        <div id="page-content">
+            {% block content %}
+            {% endblock %}
+        </div>
+
+        <script src="/static/jq.js"></script>
+        <script src="/static/fastclick.min.js"></script>
+        <script src="/static/hamburgler.js"></script>
+    </body>
+
+</html>

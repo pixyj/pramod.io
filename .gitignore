@@ -1,0 +1,9 @@
+*.pyc
+*.pyo
+*.swp
+temp.*
+.sass-cache
+*.log
+*.zip
+__pycache__
+node_modules

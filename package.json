@@ -1,0 +1,13 @@
+{
+  "name": "pixy",
+  "version": "1.0.0",
+  "description": "pramod.io site",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "remarkable": "^1.6.2"
+  }
+}
