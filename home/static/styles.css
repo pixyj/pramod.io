@@ -24,6 +24,14 @@
   font-size: 1.3rem;
 }
 
+#blog-post-title {
+  margin-bottom: 12px;
+}
+
+#blog-post-content {
+  margin-top: 2rem;
+}
+
 .blog-post-card {
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
@@ -38,12 +46,12 @@
 }
 
 .blog-post-card .mdl-card__title {
-  background: #673AB7;
+  background: rgba(255, 235, 59, 0.25);
   padding: 8px 8px;
 }
 
 .blog-post-card a, span {
-  color: white !important;
+  color: #3F51B5 !important;
 }
 
 .blog-heading-link {
@@ -75,10 +83,12 @@ blockquote::after {
 #contact-content {
   margin-left: 20%;
   margin-right: 20%;
+  min-height: 90vh;
 }
 
 #about-content {
   margin-top: 40px;
+  min-height: 90vh;
 
 }
 

@@ -13,5 +13,6 @@ def get_blog_post(request, slug):
 
 
 def blog_home(request):
-    posts = Post.objects.filter(is_published=True)
+    posts = Post.objects.filter(is_published=True)\
+                        .order_by("-created")
     return render(request, "blog_home.html", {"posts": posts})
