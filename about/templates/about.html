@@ -1,10 +1,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    
+    <div id="about-content">
+        {{ about | safe }}
+    </div>
 
 {% endblock %}
 
 
 {% block tab %}
-    var tab = "home";
+    var tab = "about";
 {% endblock %}

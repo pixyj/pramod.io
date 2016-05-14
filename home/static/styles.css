@@ -1,19 +1,4 @@
-/**
- * Copyright 2015 Google Inc. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
+/* START OF MY STUFF */
 
 .pixy-title {
   color: #311B92;
@@ -35,16 +20,42 @@
   display: block;
   margin-left: 20%;
   margin-right: 20%;
+  margin-bottom: 3rem;
+  font-size: 1.3rem;
+}
+
+.blog-post-card {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  padding: 8px 8px;
+  width: 100%;
+  min-height: auto;
+}
+
+.blog-post-card h4 {
+  margin-bottom: 16px;
+  margin-top: 16px;
+}
+
+.blog-post-card .mdl-card__title {
+  background: #673AB7;
+  padding: 8px 8px;
+}
+
+.blog-post-card a, span {
+  color: white !important;
 }
 
 .blog-heading-link {
-  margin-bottom: 10px;
   text-decoration: none;
+  display: block;
 }
 #blog-post-created-date, .blog-post-created-date {
-  font-weight: bold;
   color: black;
+  font-size: 1rem;
+  text-decoration: none;
 }
+
 
 blockquote::before {
   content: "";
@@ -58,9 +69,17 @@ blockquote::after {
   margin-left: 10px;
 }
 
+.mdl-layout__container {
+  height: auto;
+}
 #contact-content {
   margin-left: 20%;
   margin-right: 20%;
+}
+
+#about-content {
+  margin-top: 40px;
+
 }
 
 /* END OF MY STUFF */
