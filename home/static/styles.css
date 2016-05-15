@@ -43,6 +43,7 @@
 .blog-post-card h4 {
   margin-bottom: 16px;
   margin-top: 16px;
+  padding-left: 16px;
 }
 
 .blog-post-card .mdl-card__title {

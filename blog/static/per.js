@@ -1,4 +1,4 @@
-/** This code was written in jest. 
+/** This code was written in jest when I was new to web dev
 **  Definitely not my best piece of work! 
 */
 
@@ -71,7 +71,7 @@ var TableView = Backbone.View.extend({
 
     update: function() {
         var unblockedCount = this.model.get("unblockedCount");
-        $("#message").html("Done! <br/>Explored: " + unblockedCount)
+        $("#message").html("Explored: " + unblockedCount)
     },
 
     setAllUnionIds: function() {
@@ -174,6 +174,7 @@ var Percolation = Backbone.Model.extend({
     resetUnionFind: function() {
         this.unionFind = new UnionFind(this.total);
         window.unionFind = this.unionFind;
+        this.set(this.defaults);
         return this;
     },
 
@@ -230,6 +231,10 @@ var Percolation = Backbone.Model.extend({
     
     isConnected: function(one, two) {
         return this.unionFind.find(one, two);
+    },
+
+    done: function() {
+        return this.isConnected(this.top, this.bottom);
     },
 
     getNeighbours: function(position) {
@@ -329,45 +334,75 @@ var Percolation = Backbone.Model.extend({
 
 });
 
+var reset = function() {
+    window.p.resetUnionFind().resetItems();
+    window.tableView.reset();
+}
+
 var init = function() {
-    size = 5;
-    p = new Percolation({size: size});
-    window.tableView = new TableView({size: size, model: p});
+    size = 10;
+    window.p = new Percolation({size: size});
+    window.tableView = new TableView({size: size, model: window.p});
     window.tableView.render();
     
     $("#reset").click(function() {
-        p.resetUnionFind().resetItems();
-        window.tableView.reset();
+        init();
+        simulate();
     });
 }
 
-function shuffleArray(array) {
-    for (var i = array.length - 1; i > 0; i--) {
-        var j = Math.floor(Math.random() * (i + 1));
-        var temp = array[i];
-        array[i] = array[j];
-        array[j] = temp;
-    }
-    return array;
-}
 
-var run = function(p) {
-    var arr = new Array(p.size * p.size);
-    for(var i=0; i<arr.length; i++) {
-        arr[i] = i + 1;
-    }
-    shuffleArray(arr);
-    for(var i=0; i<arr.length; i++) {
-        p.unblockItem(arr[i]);
-        var done = p.isConnected(p.top, p.bottom);
-        if(done) {
-            break;
+var simulate = function() {
+    var times = 50;
+    var n = 0;
+    var i = 0;
+    var j = 0;
+    var results = new Array(times);
+    var seen = {};
+
+    var x = new Date();
+    p.on("change:percolated", function() {
+        if(p.attributes.percolated === true) {
+            reset();
+            results[n] = j / (size * size);
+            $("#explored-count").html(j);
+            j = 0;
+            n += 1;
+            var y = new Date();
+            console.log("n: ", n, "Time taken for previous iteration: ", (y-x)/1000, " seconds");
+            x = y;
+            seen = {};
         }
-    }
-    var ratio = i / arr.length;
-    console.log(ratio)
-    return ratio;
+    });
 
+    var maxIters = 100000;
+    var step = function() {
+        if(n === times) {
+            window.results = results;
+            window.i = i;
+            return;
+        }
+        if(i === maxIters) {
+            console.error("Max iterations exceeded");
+            return;
+        }
+        i += 1;
+        j += 1;
+        //console.info("j: ", j);
+        
+        var isSeen = true;
+        var itemId;
+        while(isSeen) {
+            itemId = _.random(0, size*size-1);
+            if(!seen[itemId]) {
+                seen[itemId] = true;
+                isSeen = false;
+            }
+        }
+        tableView.items[itemId].updateUnionIds();
+        window.requestAnimationFrame(step);
+    }
+    step();
 }
 
 $(document).ready(init)
