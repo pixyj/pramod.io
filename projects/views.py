@@ -1,24 +1,10 @@
 from django.shortcuts import render
 
 from blog.models import Post
-
-# Create your views here.
-
-
-HEADING = """
-## HEADING
-"""
+from .models import Project
 
 
-COASTER = """
-## COASTER
-"""
-
-REPORTS = """
-## REPORTS
-"""
-
-PROJECTS = [COASTER, REPORTS]
+HEADING = """### Welcome! I'm Pramod Lakshmanan. Here are some of my recent projects."""
 
 
 def projects(request):
@@ -27,8 +13,8 @@ def projects(request):
     2. Render the response
     """
     heading_html = Post.md_to_html(HEADING)
-    projects_html = [Post.md_to_html(p) for p in PROJECTS]
+    projects = Project.objects.filter(is_published=True).order_by('-created')
     return render(request, 'projects.html', {
         "heading": heading_html,
-        "projects": projects_html
+        "projects": projects
     })

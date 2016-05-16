@@ -6,14 +6,24 @@
         <div id="projects-heading">
             {{ heading | safe}}
         </div>
-
+        <hr/>
 
         <div id="projects-content">
             {% for p in projects %}
-                <div class="project-detail">
-                    {{ p | safe}}
+                <h2 class="project-name"> {{ p.name }} </h2>
+                <span class="blog-post-created-date project-timeline"> 
+                    {{ p.start_date }} - {{ p.end_date }} 
+                </span>
+                <div class="project-description">
+                    {{ p.html_description | safe}}
                 </div>
+                <hr/>
             {% endfor %}
+        </div>
+
+
+        <div id="projects-others">
+            I also worked on a bunch of other projects between 2010 to 2014. Please see <a href="https://www.visualcv.com/pramod-lakshmanan">my resume </a> for more information. 
         </div>
     </div>
 
