@@ -31,9 +31,9 @@ tr, td {
 
 td {
     cursor: pointer;
-    padding: 20px;
+    padding: 10px;
     text-align: center;
-    min-width: 40px;
+    min-width: 25px;
 }
 
 @media(min-width: 992px) {

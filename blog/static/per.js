@@ -49,7 +49,7 @@ var TableView = Backbone.View.extend({
     },
     
     render: function() {
-        var table= $("<table>");
+        var table= $("<table>").attr("align", "center");
         for(var i=0; i<this.size; i++) {
             var row = $("<tr>");
             for(var j=0; j<this.size; j++) {
@@ -346,7 +346,6 @@ var init = function() {
     window.tableView.render();
     
     $("#reset").click(function() {
-        init();
         simulate();
     });
 }

@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
-from home.views import home
+from projects.views import projects
 from blog.views import get_blog_post, blog_home
 from contact.views import contact
 from about.views import about
@@ -27,5 +27,5 @@ urlpatterns = [
     url(r'^blog/$', blog_home),
     url(r'^about/$', about),
     url(r'^contact/$', contact),
-    url(r'^$', home)
+    url(r'^$', projects)
 ]

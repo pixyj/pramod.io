@@ -1,5 +1,8 @@
 /* START OF MY STUFF */
 
+
+/******************************** GLOBAL STUFF ************************/
+
 .pixy-title {
   color: #311B92;
   text-decoration: none;
@@ -23,6 +26,32 @@
   margin-bottom: 3rem;
   font-size: 1.3rem;
 }
+/******************************** END OF GLOBAL STUFF ************************/
+
+
+/******************************** OVERRIDING DEFAULTS ************************/
+
+blockquote::before {
+  content: "";
+}
+
+blockquote::after {
+  content: "";
+}
+
+.mdl-navigation__link {
+  margin-left: 10px;
+}
+
+.mdl-layout__container {
+  height: auto;
+}
+
+/************************** END OF OVERRIDING DEFAULTS ************************/
+
+
+
+/************************** BLOG ***********************************************/
 
 #blog-post-title {
   margin-bottom: 12px;
@@ -59,28 +88,18 @@
   text-decoration: none;
   display: block;
 }
+
 #blog-post-created-date, .blog-post-created-date {
   color: black;
   font-size: 1rem;
   text-decoration: none;
 }
 
+/************************** END OF BLOG **********************************/
 
-blockquote::before {
-  content: "";
-}
 
-blockquote::after {
-  content: "";
-}
+/************************** CONTACT AND ABOUT **********************************/
 
-.mdl-navigation__link {
-  margin-left: 10px;
-}
-
-.mdl-layout__container {
-  height: auto;
-}
 #contact-content {
   margin-left: 20%;
   margin-right: 20%;
@@ -93,8 +112,13 @@ blockquote::after {
 
 }
 
-/* END OF MY STUFF */
+/************************** END OF CONTACT AND ABOUT **********************************/
 
+
+/******************************** END OF MY STUFF *****************************************/
+
+
+/************** TOUCH ME NOT, UNLESS YOU KNOW WHAT YOU'RE DOING ********************/
 .mdl-layout {
   height: auto;
 }

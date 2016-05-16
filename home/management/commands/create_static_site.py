@@ -40,8 +40,10 @@ class Command(BaseCommand):
 
         # css
         self._create_output_dir("{}/static".format(root_dir))
-        self._url_to_file("{}/static/styles.css/".format(host),
-                          "{}/static/styles.css".format(root_dir))
+        files = ['material.css', 'styles.css', 'per.css', 'per.html', 'per.js']
+        for f in files:
+            self._url_to_file("{}/static/{}/".format(host, f),
+                              "{}/static/{}".format(root_dir, f))
 
         # blog home
         self._url_to_file("{}/blog/".format(host),
