@@ -11,9 +11,9 @@ I'm particularly passionate about making the process of learning more efficient
 and enjoyable through software and my side-projects are usually educational apps.
 
 
-
 When I'm not coding or improving my CS and programming skills, you'll find me mentoring students, 
 playing basketball, cycling in and around the city, discovering new music or supporting Liverpool.
+
 
 You can find me on the Internet in these places:
 
@@ -31,7 +31,7 @@ ________
 
 *Emacs or Vim:* Sublime Text in Vintage mode
 
-*React or Angular:* React, and good old JavaScript without any framework
+*React or Angular:* React, with ES6
 
 *Rails or Django:* Django. These "old" frameworks are still relevant.
 

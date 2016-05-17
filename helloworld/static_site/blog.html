@@ -6,9 +6,9 @@
     <meta name="description" content="Introducing Lollipop, a sweet new take on Android.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <title>
-      {% block title %}
+      
         Pramod Lakshmanan
-      {% endblock %}
+      
     </title>
 
     <link rel="icon" type="image/png" href="/static/p.png">
@@ -65,17 +65,77 @@
 
       <div class="android-content mdl-layout__content pixy-content">
 
-      {% block content %}
+      
+    
 
-      {% endblock %}
+    
+
+    <div class="mdl-card mdl-shadow--2dp blog-post-card">
+      <div class="mdl-card__title">
+        <h4>
+            <a href="/blog/functions-first-class-objects-in-python/" class="blog-heading-link" >Functions - First class objects in Python</a>
+            <a href="/blog/functions-first-class-objects-in-python/" class="blog-heading-link">
+                <span class="blog-post-created-date"> Feb. 10, 2016 </span>
+            </a>
+        </h4>
+      </div>
+    </div>
+
+        
+    
+
+    <div class="mdl-card mdl-shadow--2dp blog-post-card">
+      <div class="mdl-card__title">
+        <h4>
+            <a href="/blog/learning-hacks/" class="blog-heading-link" >Learning Hacks</a>
+            <a href="/blog/learning-hacks/" class="blog-heading-link">
+                <span class="blog-post-created-date"> Aug. 20, 2015 </span>
+            </a>
+        </h4>
+      </div>
+    </div>
+
+        
+    
+
+    <div class="mdl-card mdl-shadow--2dp blog-post-card">
+      <div class="mdl-card__title">
+        <h4>
+            <a href="/blog/examples-of-beautiful-pythonic-code/" class="blog-heading-link" >Examples of beautiful, &quot;Pythonic&quot; code</a>
+            <a href="/blog/examples-of-beautiful-pythonic-code/" class="blog-heading-link">
+                <span class="blog-post-created-date"> Feb. 2, 2014 </span>
+            </a>
+        </h4>
+      </div>
+    </div>
+
+        
+    
+
+    <div class="mdl-card mdl-shadow--2dp blog-post-card">
+      <div class="mdl-card__title">
+        <h4>
+            <a href="/blog/install-django-and-create-project-with-virtualenv-with-a-simple-shell-script/" class="blog-heading-link" >Install Django and create project with virtualenv with a simple shell script</a>
+            <a href="/blog/install-django-and-create-project-with-virtualenv-with-a-simple-shell-script/" class="blog-heading-link">
+                <span class="blog-post-created-date"> Oct. 27, 2012 </span>
+            </a>
+        </h4>
+      </div>
+    </div>
+
+        
+    
+
+
 
       </div>
     </div>
     <script src="https://code.getmdl.io/1.1.3/material.min.js"></script>
 
     <script type="text/javascript">
-    {% block tab %}
-    {% endblock %}
+    
+    var tab = "blog";
+
     var cls = "pixy-" + tab;
     var elements = document.getElementsByClassName(cls);
     elements = Array.prototype.slice.call(elements);

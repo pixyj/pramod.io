@@ -6,9 +6,9 @@
     <meta name="description" content="Introducing Lollipop, a sweet new take on Android.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <title>
-      {% block title %}
+      
         Pramod Lakshmanan
-      {% endblock %}
+      
     </title>
 
     <link rel="icon" type="image/png" href="/static/p.png">
@@ -65,17 +65,23 @@
 
       <div class="android-content mdl-layout__content pixy-content">
 
-      {% block content %}
+      
+    
+    <div id="contact-content">
+    <h4>Email: &nbsp &nbsp &nbsp<a href="mailto:pramodliv1@gmail.com">pramodliv1@gmail.com</a></h4>
+    <h4>Phone: &nbsp &nbsp +918867487217 </h4>
+    </div>
 
-      {% endblock %}
+
 
       </div>
     </div>
     <script src="https://code.getmdl.io/1.1.3/material.min.js"></script>
 
     <script type="text/javascript">
-    {% block tab %}
-    {% endblock %}
+    
+    var tab = "contact";
+
     var cls = "pixy-" + tab;
     var elements = document.getElementsByClassName(cls);
     elements = Array.prototype.slice.call(elements);

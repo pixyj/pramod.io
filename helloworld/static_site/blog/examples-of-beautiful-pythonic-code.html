@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Introducing Lollipop, a sweet new take on Android.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>
+      
+  Examples of beautiful, &quot;Pythonic&quot; code
+
+    </title>
+
+    <link rel="icon" type="image/png" href="/static/p.png">
+
+
+    <!-- Page styles -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="/static/material.css">
+    <link rel="stylesheet" href="/static/styles.css">
+
+    <!-- HEAP ANALYTICS -->
+      <script type="text/javascript">
+        window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var r=t.forceSSL||"https:"===document.location.protocol,a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=(r?"https:":"http:")+"//cdn.heapanalytics.com/js/heap-"+e+".js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(a,n);for(var o=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=["addEventProperties","addUserProperties","clearEventProperties","identify","removeEventProperty","setEventProperties","track","unsetEventProperty"],c=0;c<p.length;c++)heap[p[c]]=o(p[c])};
+          heap.load("3667159292");
+    </script>
+  </head>
+  <body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+      <div class="android-header mdl-layout__header mdl-layout__header--waterfall">
+        <div class="mdl-layout__header-row">
+          <span class="android-title mdl-layout-title">
+            <a href="/" class="pixy-title">Pramod</a>
+          </span>
+          <!-- Add spacer, to align navigation to the right in desktop -->
+          <div class="android-header-spacer mdl-layout-spacer"></div>
+          <!-- Navigation -->
+          <div class="android-navigation-container">
+            <nav class="android-navigation mdl-navigation">
+              <a class="mdl-navigation__link mdl-typography--text-uppercase pixy-projects" href="/">Projects</a>
+              <a class="mdl-navigation__link mdl-typography--text-uppercase pixy-blog" href="/blog/">Blog</a>
+              <a class="mdl-navigation__link mdl-typography--text-uppercase pixy-about" href="/about/">About</a>
+              <a class="mdl-navigation__link mdl-typography--text-uppercase pixy-contact" href="/contact/">Contact</a>
+            </nav>
+          </div>
+          <span class="android-mobile-title mdl-layout-title">
+            <a href="/" class="pixy-title">Pramod</a>
+          </span>
+        </div>
+      </div>
+
+      <div class="android-drawer mdl-layout__drawer">
+        <span class="mdl-layout-title">
+          <a href="/" class="pixy-title pixy-mobile-title">Pramod</a>
+        </span>
+        <nav class="mdl-navigation">
+          <a class="mdl-navigation__link" href="/">Projects</a>
+          <a class="mdl-navigation__link" href="/blog/">Blog</a>
+          <a class="mdl-navigation__link" href="/about/">About</a>
+          <a class="mdl-navigation__link" href="/contact/">Contact</a>
+          <div class="android-drawer-separator"></div>
+        </nav>
+      </div>
+
+      <div class="android-content mdl-layout__content pixy-content">
+
+      
+
+    <h3 id="blog-post-title">
+        <a href="/blog/examples-of-beautiful-pythonic-code/">Examples of beautiful, &quot;Pythonic&quot; code </a>
+    </h3>
+
+    <span id="blog-post-created-date"> Feb. 2, 2014 </span>
+
+    <div id="blog-post-content">
+        <p>Once you're comfortable with a programming language, and program a bunch of projects in that language, you inevitably aspire to do things idiomatically and take joy in writing beautiful and performant code. Here are some examples when handling sequences, itertools and collections in Python.</p>
+<hr />
+<p><em>Finding a substring:</em></p>
+<p>Use the <code>in</code> keyword instead of working with array indices.</p>
+<pre><code class="language-python">long_string = &quot;This is a very long string&quot;
+if &quot;long&quot; in long_string:
+    print(&quot;Match found&quot;)
+</code></pre>
+<p>This looks so much better than <code>longString.indexOf(&quot;long&quot;) != -1</code> (WTF?).</p>
+<hr />
+<p><strong>Generator expressions:</strong></p>
+<p>Here's a pattern I often use to write outputs to a csv file. I'm not sure if I have reinvented a function that is available in a csv processing library.</p>
+<p>Here you calculate the formula, convert the result to a string in the csv format and join the strings into the final string in one pass. Finally, the string is saved into a file. Until the resulting string is created, you only use O(1) memory!</p>
+<pre><code class="language-python">from operator import mul
+from fractions import Fraction
+ 
+def n_c_k(n, k): 
+  return int( reduce(mul, (Fraction(n-i, i+1) for i in range(k)), 1) )
+ 
+ 
+def binomial_probability(successes, trials, prob_success):
+    assert(successes &gt;= 0 and successes &lt;= trials)
+    failures = trials - successes
+    
+    assert(prob_success &gt;= 0 and prob_success &lt;= 1)
+    prob_failure = 1 - prob_success
+    
+    return n_c_k(trials, successes) * pow(prob_success, successes) * pow(prob_failure, failures)
+ 
+ 
+def binomial_distribution(trials, prob_success):
+    values = (&quot;{},{}&quot;.format(i, binomial_probability(i, trials, prob_success)) for i in range(trials + 1))
+ 
+    csv_values = &quot;\n&quot;.join(values)
+ 
+    file_name = &quot;binomial_distribution_{}_{}.csv&quot;.format(trials, prob_success)
+    with open(file_name, &quot;w&quot;) as f:
+        f.write(csv_values)
+</code></pre>
+<hr />
+<p><em>Counters</em></p>
+<p>Let's say you have a list with repeated values and you want to count the occurrence of each value. If you come from a background in low-level languages, you'll probably write a for loop. But this use case is so common that the Python standard library has Counters.</p>
+<pre><code class="language-python">&gt;&gt;&gt; from collections import Counter
+&gt;&gt;&gt; fruits = ['orange', 'banana', 'apple', 'orange', 'banana']
+&gt;&gt;&gt; Counter(fruits)
+Counter({'orange': 2, 'banana': 2, 'apple': 1})
+</code></pre>
+<hr />
+<p><em>Enumerate when looping to get both the index and value of items in a list.</em></p>
+<pre><code class="language-python">x = ['a', 'b', 'c']
+for index, item in enumerate(x):
+    print(index, item)
+ 
+0 a
+1 b
+2 c
+</code></pre>
+<p><strong>import X from Y as Z</strong></p>
+<p>Let's say you have a class/function with a verbose name in module A that needs to be imported into module B. Or A has a function called filter_items and you need the same name in B and still import A's filter_items. You can rename the class/function within B with ease and still have readable code. You don't have to monkeypatch A.</p>
+<pre><code class="language-python">#A.py
+ 
+def filter_items(items):
+    for i in items:
+        if i &lt; 10:
+            yield i
+ 
+ 
+#B.py
+ 
+from A import filter_items as A_filter_items
+ 
+def filter_items(items):
+    for i in items:
+        if i &lt;= 5:
+            yield i
+ 
+def do_something(items):
+    x = A_filter_items(items)
+    y = filter_items(items)
+    return (x, y)
+</code></pre>
+<hr />
+<p>Argument unpacking</p>
+<pre><code class="language-python">def add(one, two):
+    return one + two
+ 
+my_list = [1, 2]
+x = add(*my_list)  # x = 3
+ 
+my_dict = {&quot;one&quot;: 1, &quot;two&quot;: 2}
+y = add(**my_dict) #y = 3
+</code></pre>
+<hr />
+<p><em>Looping through multiple sequences using <code>zip</code> (<code>zip_longest</code> in <code>python3</code>)</em></p>
+<pre><code class="language-python">&gt;&gt;&gt; from itertools import zip_longest
+&gt;&gt;&gt; x = [1, 2, 3, 4]
+&gt;&gt;&gt; y = ['a', 'b', 'c']
+&gt;&gt;&gt; for i, j in zip_longest(x, y):
+...     print(i, j)
+... 
+1 a
+2 b
+3 c
+4 None
+</code></pre>
+<hr />
+<p><em>Dictionary comprehensions:</em></p>
+<p>Let's build on the previous example.</p>
+<pre><code class="language-python">&gt;&gt;&gt; my_dict = {key: value for key, value in zip_longest(x,y)}
+&gt;&gt;&gt; my_dict
+{1: 'a', 2: 'b', 3: 'c', 4: None}
+</code></pre>
+    </div>
+
+
+
+      </div>
+    </div>
+    <script src="https://code.getmdl.io/1.1.3/material.min.js"></script>
+
+    <script type="text/javascript">
+    
+    var tab = "blog";
+
+    var cls = "pixy-" + tab;
+    var elements = document.getElementsByClassName(cls);
+    elements = Array.prototype.slice.call(elements);
+    elements.forEach(function(el) {
+      el.className += " " + "pixy-active-tab";
+    });
+
+    </script>
+  </body>
+</html>

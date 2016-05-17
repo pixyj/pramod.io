@@ -22,7 +22,7 @@ class Command(BaseCommand):
             f.write(html_binary_string)
 
     def handle(self, *args, **options):
-        root_dir = "/tmp/static_site"
+        root_dir = "helloworld/static_site"
         host = "http://localhost:4444"
         self._create_output_dir(root_dir)
 
