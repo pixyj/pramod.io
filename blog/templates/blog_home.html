@@ -5,16 +5,17 @@
 
     {% for post in posts %}
 
-    <div class="mdl-card mdl-shadow--2dp blog-post-card">
-      <div class="mdl-card__title">
-        <h4>
-            <a href="{{ post.url }}" class="blog-heading-link" >{{ post.title }}</a>
-            <a href="{{ post.url }}" class="blog-heading-link">
-                <span class="blog-post-created-date"> {{ post.created | date }} </span>
-            </a>
-        </h4>
-      </div>
-    </div>
+            <div class="mdl-card mdl-shadow--2dp blog-post-card">
+              <div class="mdl-card__title">
+                <h4 class="blog-home-item-heading">
+                    <a href="{{ post.url }}" class="blog-heading-link" >{{ post.title }}</a>
+                    <a href="{{ post.url }}" class="blog-heading-link">
+                        <span class="blog-post-created-date"> {{ post.created | date }} </span>
+                    </a>
+                </h4>
+              </div>
+            </div>
+        
 
         
     {% endfor %}
