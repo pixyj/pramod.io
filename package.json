@@ -8,6 +8,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "commonmark": "^0.27.0",
     "remarkable": "^1.6.2"
   }
 }
