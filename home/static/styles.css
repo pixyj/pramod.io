@@ -119,12 +119,26 @@ h5 {
 
 /************************** BLOG ***********************************************/
 
+
 #blog-post-title {
   margin-bottom: 12px;
 }
 
 #blog-post-content {
   margin-top: 2rem;
+}
+
+.blog-post-anchor {
+  text-decoration: none;
+}
+
+
+.blog-home-item-text {
+  color: #5E35B1; 
+}
+
+.blog-home-item-title:hover {
+  background: rgba(3, 169, 244, 0.08);
 }
 
 .blog-post-card {
@@ -141,18 +155,14 @@ h5 {
   padding-left: 16px;
 }
 
-.blog-post-card .mdl-card__title {
-  background: rgba(255, 235, 59, 0.25);
+.blog-post-card {
+  background: white;
   padding: 8px 8px;
 }
 
-.blog-post-card a, span {
-  color: #3F51B5 !important;
-}
-
 .blog-heading-link {
-  text-decoration: none;
   display: block;
+  text-decoration: none;
 }
 
 .blog-home-item-heading {
@@ -163,6 +173,7 @@ h5 {
   color: black;
   font-size: 1rem;
   text-decoration: none;
+  margin-top: 0.5rem;
 }
 
 /************************** END OF BLOG **********************************/
