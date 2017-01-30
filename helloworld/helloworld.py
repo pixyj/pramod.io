@@ -26,7 +26,10 @@ class Main(webapp2.RequestHandler):
 class Styles(webapp2.RequestHandler):
     def get(self, file_name):
         extension = file_name.split(".")[1]
-        content_type = 'text/{}'.format(extension)
+        if extension == 'svg':
+            content_type = 'image/svg+xml'
+        else:
+            content_type = 'text/{}'.format(extension)
         self.response.headers['Content-Type'] = content_type
         cache_page(self.response)
         self.response.write(to_str('static/{}'.format(file_name)))
