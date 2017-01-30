@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Pramod's blog</title><link>http://localhost:4444/blog/</link><description>The latest posts from Pramod's blog</description><atom:link href="http://localhost:4444/rss/" rel="self"></atom:link><language>en-us</language><lastBuildDate>Mon, 30 Jan 2017 18:12:28 -0000</lastBuildDate><item><title>Functions - First class objects in Python</title><link>http://localhost:4444/blog/functions-first-class-objects-in-python/</link><description>&lt;h4&gt;Why are functions considered first class objects in Python?&lt;/h4&gt;
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Pramod's blog</title><link>http://localhost:4444/blog/</link><description>The latest posts from Pramod's blog</description><atom:link href="http://localhost:4444/rss/" rel="self"></atom:link><language>en-us</language><lastBuildDate>Mon, 30 Jan 2017 18:23:04 -0000</lastBuildDate><item><title>Functions - First class objects in Python</title><link>http://localhost:4444/blog/functions-first-class-objects-in-python/</link><description>&lt;h4&gt;Why are functions considered first class objects in Python?&lt;/h4&gt;
 &lt;p&gt;Colloquially, Functions are considered as first class citizens in a programming language if:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;

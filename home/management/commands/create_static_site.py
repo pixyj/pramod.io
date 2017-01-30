@@ -56,3 +56,5 @@ class Command(BaseCommand):
         # rss
         self._url_to_file("{}/rss/".format(host),
                           "{}/rss.xml".format(root_dir))
+        self._url_to_file("{}/static/{}/".format(host, 'feed-icon.svg'),
+                          "{}/static/{}".format(root_dir, 'feed-icon.svg'))
