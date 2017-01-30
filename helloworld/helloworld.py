@@ -61,7 +61,7 @@ class BlogPost(webapp2.RequestHandler):
 
 
 class RSS(webapp2.RequestHandler):
-    def get(self, slug):
+    def get(self):
         self.response.headers['Content-Type'] = 'application/rss+xml'
         cache_page(self.response)
         self.response.write(to_str('rss.xml'))
