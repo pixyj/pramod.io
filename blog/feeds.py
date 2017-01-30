@@ -14,7 +14,7 @@ class PostsFeed(Feed):
         return item.title
 
     def item_description(self, item):
-        return item.markdown_content
+        return item.html_content
 
     def item_link(self, item):
         return item.url

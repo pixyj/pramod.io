@@ -52,3 +52,7 @@ class Command(BaseCommand):
 
         # blog posts
         Post.collect_published_posts("{}/blog".format(root_dir))
+
+        # rss
+        self._url_to_file("{}/rss/".format(host),
+                          "{}/rss.xml".format(root_dir))

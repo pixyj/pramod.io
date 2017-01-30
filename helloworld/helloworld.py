@@ -60,6 +60,13 @@ class BlogPost(webapp2.RequestHandler):
         self.response.write(to_str('blog/{}.html'.format(slug)))
 
 
+class RSS(webapp2.RequestHandler):
+    def get(self, slug):
+        self.response.headers['Content-Type'] = 'application/rss+xml'
+        cache_page(self.response)
+        self.response.write(to_str('rss.xml'))
+
+
 app = webapp2.WSGIApplication([
     ('/', Main),
     ('/static/([\w\d\-\.]+)', Styles),

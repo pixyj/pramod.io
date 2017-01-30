@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Pramod's blog</title><link>http://localhost:4444/blog/</link><description>The latest posts from Pramod's blog</description><atom:link href="http://localhost:4444/rss/" rel="self"></atom:link><language>en-us</language><lastBuildDate>Mon, 30 Jan 2017 18:12:28 -0000</lastBuildDate><item><title>Functions - First class objects in Python</title><link>http://localhost:4444/blog/functions-first-class-objects-in-python/</link><description>&lt;h4&gt;Why are functions considered first class objects in Python?&lt;/h4&gt;
+&lt;p&gt;Colloquially, Functions are considered as first class citizens in a programming language if:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;A function can be passed as an argument to another function&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;A function can return another function.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Common operations supported for other data types are supported for functions as well.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;(Condition 3 is a superset of conditions 1 and 2. But it's useful to think of this condition separately for learning purposes.)&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://en.wikipedia.org/wiki/First-class_citizen"&gt;More formally&lt;/a&gt;:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;In programming language design, a first-class citizen (also type, object, entity, or value) in a given programming language is an entity which supports all the operations generally available to other entities.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;hr /&gt;
+&lt;p&gt;&lt;strong&gt;Condition 1:&lt;/strong&gt;
+Let's say you define a function called square:&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;def square(n): 
+    &amp;quot;&amp;quot;&amp;quot;Compute the square of a number&amp;quot;&amp;quot;&amp;quot; 
+    return n * n
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;And now you want to write another function that squares a sequence of numbers:&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;def square_a_sequence_of_numbers(sequence): 
+    for n in sequence: 
+        yield square(n)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Here's an usage example: (I'm using the interactive &lt;code&gt;ipython&lt;/code&gt; interpreter)&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;my_tuple = (1, 2, 3, 4, 5, ) 
+square_a_sequence_of_numbers(my_tuple)
+&amp;lt;generator object square_a_sequence_of_numbers at 0x10d3aac80&amp;gt;
+ 
+# IPython stores the result of the previous expression in a variable named _
+list(_) 
+[1, 4, 9, 16, 25]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;What if you have another function that computes the cube?&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;def cube(n): 
+    return n * n * n
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;And now you want a function that calculates the cube of each number in a sequence. Wouldn't it be better if you could reuse the code you wrote earlier? This is where a map-like function comes into play.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;def map_a_sequence_of_numbers(func, sequence): 
+    for n in sequence: 
+        yield func(n)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;em&gt;Usage Example:&lt;/em&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;map_a_sequence_of_numbers(cube, my_tuple)
+&amp;lt;generator object map_a_sequence_of_numbers at 0x10d3aad20&amp;gt;
+list(_)
+[1, 8, 27, 64, 125]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Here, map_a_sequence_of_numbers is a called a 'higher_order_function' since it accepts another function as one of its arguments. Python has a built-in map function, but Pythonistas prefer list comprehensions to map.&lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;&lt;strong&gt;Condition 2 - Function returning another function:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Decorators are the definitive examples of functions that return another function.&lt;/p&gt;
+&lt;p&gt;Here, we define a decorator, &lt;code&gt;cached&lt;/code&gt; which caches the result of a pure function that takes a single numeric argument.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;def cached(func): 
+    cached_result = {} 
+ 
+    def wrapper(n): 
+        value = cached_result.get(n) 
+        if value is not None: 
+            print(&amp;quot;Cache hit: f({})&amp;quot;.format(n)) 
+            return value
+        print(&amp;quot;Cache miss: f({})&amp;quot;.format(n)) 
+        value = func(n) 
+        cached_result[n] = value 
+        return value 
+ 
+    return wrapper
+ 
+@cached 
+def fib(n): 
+    if n in [0, 1]: 
+        return 1 
+    else: 
+        return fib(n-2) + fib(n-2)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;em&gt;Usage Example:&lt;/em&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;fib(5)
+Cache miss: f(5) 
+Cache miss: f(3) 
+Cache miss: f(1) 
+Cache hit: f(1) 
+Cache hit: f(3) 
+4
+fib(3)
+Cache hit: f(3) 
+2
+&lt;/code&gt;&lt;/pre&gt;
+&lt;hr /&gt;
+&lt;p&gt;&lt;strong&gt;Condition 3 - Other operations on functions:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Python has a &lt;code&gt;dir&lt;/code&gt; function which can be called on any object to list its attributes. Functions are no different. You can query the documentation, source code and other attributes of a function object.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;square.__doc__
+'Compute the square of a number'
+square.__module__
+'__main__'
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;You can even see the bytecode executed by the interpreter using the  module.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;import dis dis.dis(square)
+ 17    0 LOAD_FAST 0 (n) 
+       3 LOAD_FAST 0 (n) 
+       6 BINARY_MULTIPLY 
+       7 RETURN_VALUE
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Capabilities such as inspecting functions are used by library and compiler authors for meta-programming&lt;/p&gt;
+&lt;p&gt;All conditions are satisfied, and we're done!&lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;&lt;strong&gt;So why is this feature important?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Having first class functions makes a language more expressive, so you have to write less boilerplate code. For example, until Java8, Java did not have first class functions and handling UI events was a huge pain. But web programming in JavaScript is much easier and even enjoyable, mainly because functions are first class objects.&lt;/p&gt;
+&lt;p&gt;Also, languages with first class functions also allow functions to be modified during runtime which is really useful for testing and debugging. These are just a couple of examples. Once you've programmed in a language with first class functions, you can't go back.&lt;/p&gt;
+&lt;p&gt;PS: I've entered the entire explanation in an &lt;a href="https://gist.github.com/pixyj/4501ce855c2f3d14d518"&gt;IPython notebook&lt;/a&gt; so that you can paste the code in your interpreter and play along.&lt;/p&gt;</description><guid>http://localhost:4444/blog/functions-first-class-objects-in-python/</guid></item><item><title>Learning Hacks</title><link>http://localhost:4444/blog/learning-hacks/</link><description>&lt;p&gt;Here's a list of learning strategies and hacks I use when learning computer science. Many of these techniques are applicable to other fields too.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;1. Learn in iterations:&lt;/strong&gt; You're not going to understand everything when you study a topic for the first time, so accept that fact and allocate time for multiple readings.  An important question will answer itself many months or years down the line as you make more connections, so being patient is a virtue.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;2. Refer the definitive books and websites:&lt;/strong&gt; The Internet is full of resources. But initially, it is difficult to separate the good websites, books and MOOCs from the bad ones. So work on skimming through all the available options and choose the ones which feel good to you. Even if you spend an extra two days up front on choosing the right resource to get started, the search effort will payoff in the long run.&lt;/p&gt;
+&lt;p&gt;For example, the w3schools site comes up first on google when you're learning web development or &lt;code&gt;SQL&lt;/code&gt;, but you need to learn to wean yourself off basic tutorials and graduate to better sites like Mozilla Developer Network.&lt;/p&gt;
+&lt;p&gt;Similarly, I found that I liked the lesser-known book on the Theory of Computation by Michael Sipser instead of the famous book by Ullman because it included intuitive explanations for each proof unlike the Ullman one which made me question my intellectual capacity once every 5 minutes.&lt;/p&gt;
+&lt;p&gt;On a related note, use site-specific search engines like &lt;a href="hn.algolia.com"&gt;hn.algolia.com&lt;/a&gt; , and curated sites like Reddit and StackExchange before jumping to Google to discover curated books and beginner-friendly material.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;3. Be an active producer of knowledge, instead of a passive consumer:&lt;/strong&gt; Don't be scared to ask questions and provide answers and opinions on StackExchange/Khan Academy/Reddit/Disqus/Quora. This is an effective way to get feedback on your thought process and understanding. For example, when learning Maclaurin and Taylor series on Khan Academy, I had a newbie question and felt embarrassed. But I asked it anyway and received a wonderful reply, which was more helpful than the original video.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;4. Celebrate&lt;/strong&gt; when you solve a difficult problem or achieve a milestone. Don't fixate on things you don't know all the time.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;5. Read A Mind for Numbers by Barbara Oakley&lt;/strong&gt; which explains how to learn better through chunking, taking breaks, spaced repetition, Pomodoro technique and other methods.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;6. Read How to Solve it by George Polya&lt;/strong&gt; and work constantly to enlarge your problem solving toolset: When things aren't going well, don't give up. Instead, give your learning process more structure and go through all the tools in your arsenal.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;7. Create a concept graph&lt;/strong&gt;: Let's say you're difficulty understanding  Optimal binary search trees. You need to understand basic proof techniques like proof by induction and proof by contradiction,  basics of dynamic programming and optimal substructures, binary trees and some basic probability. So if you have difficulty in understanding any of these prerequisites, focus on learning these concepts and then attack your original problem.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;8. Go on a Wikipedia web-crawling spree&lt;/strong&gt; When you learn a topic completely foreign to what you've studied so far, you'll inevitably be barraged with dozens of new terms. Having at least a superficial familiarity with all the important terms in the topic will make you feel at home faster. Check if the topic has a glossary of terms. If not, then read the first paragraph of a bunch of Wikipedia articles and follow the links to your heart's content. Also follow the topic on Quora/StackExchange and find out all the FAQs and gotchas that beginners have to deal with.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;9. Write down a list of questions that you want answered&lt;/strong&gt; before you even embark on studying a topic. For example, before I started to learn programming seriously and only had an Intro to C programming course under my belt - when branching, looping and arrays were the only tools in my programmer toolbox -  I had the following question.&lt;/p&gt;
+&lt;p&gt;When I log into Google and give my username/password, does the software loop through all the usernames before finding mine? Isn't it too inefficient? Later,  (after about a year of self taught programming) I discovered about trees, hash tables and other data-structures, I was ecstatic. I realized that GMail doesn't loop through all the usernames, after all. Now, when I am embarking on learning a new topic, I ask similar questions which keep me motivated when going through tough times - I know there's light at the end of the tunnel.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;10. Maintain a list of all your queries and answers&lt;/strong&gt; along with their timestamps. Sometimes, It may seem as though you haven't made much progress. But you'll be amazed at the improvements you've made when you look back at the same questions a few months later. If you have been slacking off, the data will make you feel guilty and provide motivation to invest more time in your studies. If you follow this process religiously, you'll have a rich data set within months and you can analyze your strengths and weaknesses more objectively.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;11. Write to test your quality of thinking:&lt;/strong&gt; You might think you've learnt something well enough, but how do you validate your hypothesis? Writing about something you've just learnt is an excellent proxy for your clarity of thinking and the level of understanding. If your typing speed isn't fast enough, use &lt;a href="https://dictation.io"&gt;Dictation - Online Speech Recognition&lt;/a&gt;. You can also record an audio or video of you explaining the concept to yourself or teach a friend or someone on the Internet.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;12. Ask provocative questions&lt;/strong&gt; during your note taking. Don't blindly copy a formula or an algorithm. Note taking is not only a tool for future reviews, but for stimulating your mind and potentially coming up with original thoughts. When I make a note, it usually results in adding multiple questions to my dataset as well&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;13. Write code / simulations even when you aren’t learning CS&lt;/strong&gt;. When you’ve communicated your understanding successfully to a computer, you’re pretty much guaranteed to have learned the concept well. This also makes the process interactive and fun (especially when learning through a bland online video). For example, see Udacity’s Statistics class. I have also tried it extensively to learn various probability distributions when following along Khan Academy videos and yeah, it works! For the definitive example, see the animations in &lt;a href="https://www.youtube.com/watch?v=_ndaBQUFTLs&amp;amp;list=PLGGML-sB2bN9HlEowBPW75fdfNNK6NHBO"&gt;The Mechnical Universe lectures&lt;/a&gt; where the instructors developed animations to explain physics concepts.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;14. Live the concept&lt;/strong&gt;. Connect your learning to events in your daily life and make analogies. Here's an example. My friends gifted me a soft toy football. Whenever I want to take a break from studying, I kick the ball around our house (much to my dad's chagrin). I noticed that there was a thin straight line from our living room to my parents' room with no obstacles or walls.&lt;/p&gt;
+&lt;p&gt;So I wanted to check if it was possible to &amp;quot;take a free kick&amp;quot; from the edge of the living room to my parents' room. There was no margin for error if I chose to kick the ball in a straight line. So I had to apply some spin to increase my chances which made it more fun. I had three independent variables to fiddle with - speed, spin and direction. During each break, I would take 10 kicks. I would apply various combinations of the three variables during each session. My average score always hovered around 2 and my highest score was 3 during the first few days and I could feel the Gaussian distribution in my scores even though I did not note them down. After 2 weeks of practice, I reached 6 for the first time. I was elated. But then I realized that this could be an outlier, or in other words, a fluke. How many more scores above 3 do I need to ensure I have really improved? Now, I had to do more sessions and measure my new mean and standard deviation - in other words, hypothesis testing. So yeah, this was one of my first conscious Statistics experiment in real life.&lt;/p&gt;</description><guid>http://localhost:4444/blog/learning-hacks/</guid></item><item><title>Examples of beautiful, "Pythonic" code</title><link>http://localhost:4444/blog/examples-of-beautiful-pythonic-code/</link><description>&lt;p&gt;Once you're comfortable with a programming language, and program a bunch of projects in that language, you inevitably aspire to do things idiomatically and take joy in writing beautiful and performant code. Here are some examples when handling sequences, itertools and collections in Python.&lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;&lt;em&gt;Finding a substring:&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Use the &lt;code&gt;in&lt;/code&gt; keyword instead of working with array indices.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;long_string = &amp;quot;This is a very long string&amp;quot;
+if &amp;quot;long&amp;quot; in long_string:
+    print(&amp;quot;Match found&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This looks so much better than &lt;code&gt;longString.indexOf(&amp;quot;long&amp;quot;) != -1&lt;/code&gt; (WTF?).&lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;&lt;strong&gt;Generator expressions:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Here's a pattern I often use to write outputs to a csv file. I'm not sure if I have reinvented a function that is available in a csv processing library.&lt;/p&gt;
+&lt;p&gt;Here you calculate the formula, convert the result to a string in the csv format and join the strings into the final string in one pass. Finally, the string is saved into a file. Until the resulting string is created, you only use O(1) memory!&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;from operator import mul
+from fractions import Fraction
+ 
+def n_c_k(n, k): 
+  return int( reduce(mul, (Fraction(n-i, i+1) for i in range(k)), 1) )
+ 
+ 
+def binomial_probability(successes, trials, prob_success):
+    assert(successes &amp;gt;= 0 and successes &amp;lt;= trials)
+    failures = trials - successes
+    
+    assert(prob_success &amp;gt;= 0 and prob_success &amp;lt;= 1)
+    prob_failure = 1 - prob_success
+    
+    return n_c_k(trials, successes) * pow(prob_success, successes) * pow(prob_failure, failures)
+ 
+ 
+def binomial_distribution(trials, prob_success):
+    values = (&amp;quot;{},{}&amp;quot;.format(i, binomial_probability(i, trials, prob_success)) for i in range(trials + 1))
+ 
+    csv_values = &amp;quot;\n&amp;quot;.join(values)
+ 
+    file_name = &amp;quot;binomial_distribution_{}_{}.csv&amp;quot;.format(trials, prob_success)
+    with open(file_name, &amp;quot;w&amp;quot;) as f:
+        f.write(csv_values)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;hr /&gt;
+&lt;p&gt;&lt;em&gt;Counters&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Let's say you have a list with repeated values and you want to count the occurrence of each value. If you come from a background in low-level languages, you'll probably write a for loop. But this use case is so common that the Python standard library has Counters.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;&amp;gt;&amp;gt;&amp;gt; from collections import Counter
+&amp;gt;&amp;gt;&amp;gt; fruits = ['orange', 'banana', 'apple', 'orange', 'banana']
+&amp;gt;&amp;gt;&amp;gt; Counter(fruits)
+Counter({'orange': 2, 'banana': 2, 'apple': 1})
+&lt;/code&gt;&lt;/pre&gt;
+&lt;hr /&gt;
+&lt;p&gt;&lt;em&gt;Enumerate when looping to get both the index and value of items in a list.&lt;/em&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;x = ['a', 'b', 'c']
+for index, item in enumerate(x):
+    print(index, item)
+ 
+0 a
+1 b
+2 c
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;import X from Y as Z&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Let's say you have a class/function with a verbose name in module A that needs to be imported into module B. Or A has a function called filter_items and you need the same name in B and still import A's filter_items. You can rename the class/function within B with ease and still have readable code. You don't have to monkeypatch A.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;#A.py
+ 
+def filter_items(items):
+    for i in items:
+        if i &amp;lt; 10:
+            yield i
+ 
+ 
+#B.py
+ 
+from A import filter_items as A_filter_items
+ 
+def filter_items(items):
+    for i in items:
+        if i &amp;lt;= 5:
+            yield i
+ 
+def do_something(items):
+    x = A_filter_items(items)
+    y = filter_items(items)
+    return (x, y)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;hr /&gt;
+&lt;p&gt;Argument unpacking&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;def add(one, two):
+    return one + two
+ 
+my_list = [1, 2]
+x = add(*my_list)  # x = 3
+ 
+my_dict = {&amp;quot;one&amp;quot;: 1, &amp;quot;two&amp;quot;: 2}
+y = add(**my_dict) #y = 3
+&lt;/code&gt;&lt;/pre&gt;
+&lt;hr /&gt;
+&lt;p&gt;&lt;em&gt;Looping through multiple sequences using &lt;code&gt;zip&lt;/code&gt; (&lt;code&gt;zip_longest&lt;/code&gt; in &lt;code&gt;python3&lt;/code&gt;)&lt;/em&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;&amp;gt;&amp;gt;&amp;gt; from itertools import zip_longest
+&amp;gt;&amp;gt;&amp;gt; x = [1, 2, 3, 4]
+&amp;gt;&amp;gt;&amp;gt; y = ['a', 'b', 'c']
+&amp;gt;&amp;gt;&amp;gt; for i, j in zip_longest(x, y):
+...     print(i, j)
+... 
+1 a
+2 b
+3 c
+4 None
+&lt;/code&gt;&lt;/pre&gt;
+&lt;hr /&gt;
+&lt;p&gt;&lt;em&gt;Dictionary comprehensions:&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Let's build on the previous example.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;&amp;gt;&amp;gt;&amp;gt; my_dict = {key: value for key, value in zip_longest(x,y)}
+&amp;gt;&amp;gt;&amp;gt; my_dict
+{1: 'a', 2: 'b', 3: 'c', 4: None}
+&lt;/code&gt;&lt;/pre&gt;</description><guid>http://localhost:4444/blog/examples-of-beautiful-pythonic-code/</guid></item><item><title>Visualize the Union-Find data structure</title><link>http://localhost:4444/blog/visualize-the-union-find-data-structure/</link><description>&lt;h3&gt;Hi There&lt;/h3&gt;
+&lt;iframe src="/static/per.html" width="100%" height="1000px" frameBorder="0" scrolling="no"&gt;
+&lt;/iframe&gt;</description><guid>http://localhost:4444/blog/visualize-the-union-find-data-structure/</guid></item><item><title>Install Django and create project with virtualenv with a simple shell script</title><link>http://localhost:4444/blog/install-django-and-create-project-with-virtualenv-with-a-simple-shell-script/</link><description>&lt;p&gt;I always find myself creating quick and dirty Django projects to learn more about django and also to try out useful third party apps.&lt;/p&gt;
+&lt;p&gt;So I created a &lt;a href="https://gist.github.com/3963953"&gt;simple shell script&lt;/a&gt; to create a Django project on a development machine to prevent the same old process. After all, being a Django dev means one should practice the &lt;a href="http://en.wikipedia.org/wiki/Don't_repeat_yourself"&gt;DRY&lt;/a&gt; principle too, right?&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;#!/bin/bash
+
+#Take project name as input
+if [ -z &amp;quot;$1&amp;quot; ] 
+then
+	echo &amp;quot;Enter project name&amp;quot;
+	read proj
+else
+	proj=&amp;quot;$1&amp;quot;
+fi
+
+#Create a virtualenv
+virtualenv $proj
+cd $proj
+source bin/activate
+
+
+
+#Install django within the virtualenv
+echo &amp;quot;PIP_RESPECT_VIRTUALENV=true&amp;quot; &amp;gt;&amp;gt; bin/activate
+touch requirements.txt
+echo &amp;quot;django&amp;quot; &amp;gt;&amp;gt; requirements.txt
+pip install -r requirements.txt
+
+#Create project
+python lib/python2.7/site-packages/django/bin/django-admin.py startproject $proj
+
+#Set default environment variables
+export DJANGO_SETTINGS_MODULE=&amp;quot;$proj.settings&amp;quot;
+export PYTHONPATH=&amp;quot;$VIRTUAL_ENV/$proj&amp;quot;
+
+#Write the variables into activate for future use.
+echo &amp;quot;export DJANGO_SETTINGS_MODULE=$proj.settings&amp;quot; &amp;gt;&amp;gt; bin/activate
+echo &amp;quot;export PYTHONPATH=$VIRTUAL_ENV/$proj&amp;quot; &amp;gt;&amp;gt; bin/activate
+
+#Reset virtualenv and we are ready
+deactivate
+source bin/activate
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;This works on Linux and Mac. But the process on Windows is similar. Check out &lt;a href="http://stackoverflow.com/questions/4527958/python-virtualenv-questions"&gt;this question&lt;/a&gt; on Stack Overflow for more details.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PYTHONPATH&lt;/code&gt; and &lt;code&gt;DJANGO_SETTINGS_MODULE&lt;/code&gt; are set to sane defaults based on the name of your project.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Usage&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;source django_one_step.sh
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;And you're ready to go!&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;PS&lt;/strong&gt;:&lt;/p&gt;
+&lt;p&gt;The procedure is inspired by &lt;a href="http://v3.mike.tig.as/blog/2012/02/13/deploying-django-on-heroku/"&gt;this blog post&lt;/a&gt; which shows how to deploy django projects on Heroku (Btw you should read it even if you aren't planning on deploying on Heroku to learn some good practices if you're new to django like me) and &lt;a href="http://stackoverflow.com/questions/13098457/"&gt;this question on Stack Overflow&lt;/a&gt; which finally helped me get off my reverie on a sleepy Sunday.&lt;/p&gt;</description><guid>http://localhost:4444/blog/install-django-and-create-project-with-virtualenv-with-a-simple-shell-script/</guid></item></channel></rss>
