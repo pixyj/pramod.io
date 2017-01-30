@@ -74,4 +74,5 @@ app = webapp2.WSGIApplication([
     ('/contact/', Contact),
     ('/blog/([\w\d\-]+)/', BlogPost),
     ('/blog/', BlogHome),
+    ('/rss/', RSS),
 ], debug=True)
