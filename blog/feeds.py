@@ -8,7 +8,7 @@ class PostsFeed(Feed):
     description = "The latest posts from Pramod's blog"
 
     def items(self):
-        return Post.objects.order_by("-created")
+        return Post.objects.order_by("-created").filter(is_published=True)
 
     def item_title(self, item):
         return item.title

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Pramod's blog</title><link>http://localhost:4444/blog/</link><description>The latest posts from Pramod's blog</description><atom:link href="http://localhost:4444/rss/" rel="self"></atom:link><language>en-us</language><lastBuildDate>Mon, 30 Jan 2017 18:23:04 -0000</lastBuildDate><item><title>Functions - First class objects in Python</title><link>http://localhost:4444/blog/functions-first-class-objects-in-python/</link><description>&lt;h4&gt;Why are functions considered first class objects in Python?&lt;/h4&gt;
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Pramod's blog</title><link>http://localhost:4444/blog/</link><description>The latest posts from Pramod's blog</description><atom:link rel="self" href="http://localhost:4444/rss/"></atom:link><language>en-us</language><lastBuildDate>Mon, 30 Jan 2017 18:38:57 -0000</lastBuildDate><item><title>Functions - First class objects in Python</title><link>http://localhost:4444/blog/functions-first-class-objects-in-python/</link><description>&lt;h4&gt;Why are functions considered first class objects in Python?&lt;/h4&gt;
 &lt;p&gt;Colloquially, Functions are considered as first class citizens in a programming language if:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;
@@ -243,9 +243,7 @@ y = add(**my_dict) #y = 3
 &lt;pre&gt;&lt;code class="language-python"&gt;&amp;gt;&amp;gt;&amp;gt; my_dict = {key: value for key, value in zip_longest(x,y)}
 &amp;gt;&amp;gt;&amp;gt; my_dict
 {1: 'a', 2: 'b', 3: 'c', 4: None}
-&lt;/code&gt;&lt;/pre&gt;</description><guid>http://localhost:4444/blog/examples-of-beautiful-pythonic-code/</guid></item><item><title>Visualize the Union-Find data structure</title><link>http://localhost:4444/blog/visualize-the-union-find-data-structure/</link><description>&lt;h3&gt;Hi There&lt;/h3&gt;
-&lt;iframe src="/static/per.html" width="100%" height="1000px" frameBorder="0" scrolling="no"&gt;
-&lt;/iframe&gt;</description><guid>http://localhost:4444/blog/visualize-the-union-find-data-structure/</guid></item><item><title>Install Django and create project with virtualenv with a simple shell script</title><link>http://localhost:4444/blog/install-django-and-create-project-with-virtualenv-with-a-simple-shell-script/</link><description>&lt;p&gt;I always find myself creating quick and dirty Django projects to learn more about django and also to try out useful third party apps.&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;</description><guid>http://localhost:4444/blog/examples-of-beautiful-pythonic-code/</guid></item><item><title>Install Django and create project with virtualenv with a simple shell script</title><link>http://localhost:4444/blog/install-django-and-create-project-with-virtualenv-with-a-simple-shell-script/</link><description>&lt;p&gt;I always find myself creating quick and dirty Django projects to learn more about django and also to try out useful third party apps.&lt;/p&gt;
 &lt;p&gt;So I created a &lt;a href="https://gist.github.com/3963953"&gt;simple shell script&lt;/a&gt; to create a Django project on a development machine to prevent the same old process. After all, being a Django dev means one should practice the &lt;a href="http://en.wikipedia.org/wiki/Don't_repeat_yourself"&gt;DRY&lt;/a&gt; principle too, right?&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;#!/bin/bash
 
