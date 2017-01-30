@@ -20,6 +20,8 @@ from projects.views import projects
 from blog.views import get_blog_post, blog_home
 from contact.views import contact
 from about.views import about
+from blog.feeds import PostsFeed
+
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -27,5 +29,6 @@ urlpatterns = [
     url(r'^blog/$', blog_home),
     url(r'^about/$', about),
     url(r'^contact/$', contact),
+    url(r'^rss/$', PostsFeed()),
     url(r'^$', projects)
 ]

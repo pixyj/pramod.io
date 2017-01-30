@@ -119,6 +119,10 @@ h5 {
 
 /************************** BLOG ***********************************************/
 
+#blog-feed-icon {
+  max-width: 40px;
+}
+
 
 #blog-post-title {
   margin-bottom: 12px;

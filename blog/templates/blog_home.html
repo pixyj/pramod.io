@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
+    <a href="/rss/">
+        <img src="/static/feed-icon.svg" alt="RSS | Subscribe" id="blog-feed-icon" />
+    </a>
     
 
     {% for post in posts %}
