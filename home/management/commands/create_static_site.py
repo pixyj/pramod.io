@@ -60,7 +60,8 @@ class Command(BaseCommand):
                           "{}/static/{}".format(root_dir, 'feed-icon.svg'))
 
         # vivaldi
-        ['vivaldi.js', 'vivaldi.js.map']
+        files = ['vivaldi.js', 'vivaldi.js.map']
+
         for f in files:
             self._url_to_file("{}/static/{}/".format(host, f),
                               "{}/static/{}".format(root_dir, f))
