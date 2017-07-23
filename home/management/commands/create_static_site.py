@@ -58,3 +58,9 @@ class Command(BaseCommand):
                           "{}/rss.xml".format(root_dir))
         self._url_to_file("{}/static/{}/".format(host, 'feed-icon.svg'),
                           "{}/static/{}".format(root_dir, 'feed-icon.svg'))
+
+        # vivaldi
+        ['vivaldi.js', 'vivaldi.js.map']
+        for f in files:
+            self._url_to_file("{}/static/{}/".format(host, f),
+                              "{}/static/{}".format(root_dir, f))
