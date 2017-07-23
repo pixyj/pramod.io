@@ -1,5 +1,184 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Pramod's blog</title><link>http://localhost:4444/blog/</link><description>The latest posts from Pramod's blog</description><atom:link rel="self" href="http://localhost:4444/rss/"></atom:link><language>en-us</language><lastBuildDate>Mon, 30 Jan 2017 18:38:57 -0000</lastBuildDate><item><title>Functions - First class objects in Python</title><link>http://localhost:4444/blog/functions-first-class-objects-in-python/</link><description>&lt;h4&gt;Why are functions considered first class objects in Python?&lt;/h4&gt;
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Pramod's blog</title><link>http://localhost:4444/blog/</link><description>The latest posts from Pramod's blog</description><atom:link rel="self" href="http://localhost:4444/rss/"></atom:link><language>en-us</language><lastBuildDate>Sun, 23 Jul 2017 22:52:53 -0000</lastBuildDate><item><title>Prototyping Vivaldi, a simple distributed algorithm in Elixir</title><link>http://localhost:4444/blog/prototyping-vivaldi-a-simple-distributed-algorithm-in-elixir/</link><description>&lt;h2&gt;Prototyping Vivaldi in Elixir&lt;/h2&gt;
+&lt;p&gt;When learning Elixir using the &lt;a href="https://pragprog.com/book/elixir/programming-elixir"&gt;Programming Elixir&lt;/a&gt; book, I came an excellent &lt;a href="https://www.youtube.com/watch?v=AszPoJjWK9Q"&gt;Papers We Love&lt;/a&gt; talk by Armon Dadgar of &lt;a href="https://www.hashicorp.com/"&gt;Hashicorp&lt;/a&gt; on the &lt;a href="https://www.semanticscholar.org/paper/Vivaldi-a-decentralized-network-coordinate-system-Dabek-Cox/424909ea3e4e5a8cfe5363420926c1b10fbbf034"&gt;Vivaldi algorithm&lt;/a&gt;. I thought Elixir would be a great fit to implement the algorithm.&lt;/p&gt;
+&lt;h3&gt;What is Vivaldi?&lt;/h3&gt;
+&lt;p&gt;Vivaldi was developed by Frank Dabek and Russ Cox at MIT. It is a decentralized algorithm which predicts round trip times between nodes in a cluster by assigning co-ordinates to each node.&lt;/p&gt;
+&lt;h3&gt;Why is it needed?&lt;/h3&gt;
+&lt;p&gt;From the paper:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Large-scale Internet applications can benefit from an ability to predict round-trip times to other hosts without having to contact them first. Explicit measurements are often unattractive because the cost of measurement can outweigh the benefits of exploiting proximity information. Vivaldi is a simple, light-weight algorithm that assigns synthetic coordinates to hosts such that the distance between the coordinates of two hosts accurately predicts the communication latency between the hosts.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;A modified version of Vivaldi is used by Hashicorp's &lt;a href="https://www.serf.io/"&gt;Serf&lt;/a&gt;, which in-turn is used in &lt;a href="https://www.consul.io/"&gt;Consul&lt;/a&gt;, a system used for service discovery and configuration. Vivaldi is also used in Vuze's BitTorrent client.&lt;/p&gt;
+&lt;hr /&gt;
+&lt;h3&gt;How does it work?&lt;/h3&gt;
+&lt;p&gt;The paper and the talk are very accessible, and I can't do a better job! But, if you don't have the time, here's a quick simplified explanation:&lt;/p&gt;
+&lt;p&gt;Vivaldi's goal is to assign Euclidean coordinates to each node in a cluster so that these coordinates accurately(within a 10% error) predict the round-trip-time(RTT) between the nodes.&lt;/p&gt;
+&lt;p&gt;Each node starts at the origin. When a node &lt;strong&gt;A&lt;/strong&gt; makes a request to another node &lt;strong&gt;B&lt;/strong&gt;, &lt;strong&gt;B&lt;/strong&gt; responds with the payload and also the latest version of its coordinates. &lt;strong&gt;A&lt;/strong&gt; uses the difference between the real RTT, and the RTT predicted by &lt;strong&gt;A&lt;/strong&gt; and &lt;strong&gt;B&lt;/strong&gt;'s coordinates to calculate the next version of its coordinates. When another node &lt;strong&gt;C&lt;/strong&gt; communicates with &lt;strong&gt;A&lt;/strong&gt;, A now responds with its updated coordinates.&lt;/p&gt;
+&lt;p&gt;This process repeats itself throughout the cluster, and all the nodes converge to coordinates which not only predict RTTs to nodes they've communicated with, but also the RTTs to the remaining nodes! In my simulations, I found that in clusters without triangle-inequality violations, each node converged after communicating once with  10 - 15% of its peers.&lt;/p&gt;
+&lt;p&gt;The authors found that Euclidean coordinates alone aren't good enough to model the Internet, so they added a &lt;em&gt;height&lt;/em&gt; factor, to accommodate nodes that have high latencies to reach the Internet backbone.&lt;/p&gt;
+&lt;hr /&gt;
+&lt;h3&gt;Intuition&lt;/h3&gt;
+&lt;p&gt;We'll build our intuition on how the co-ordinates are updated in 3 steps:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Forces in Action&lt;/strong&gt;&lt;/p&gt;
+&lt;div id="two-d-viz-1" class="two-d-viz"&gt;&lt;/div&gt;
+&lt;p&gt;Consider the above cluster with four nodes. The leftmost node, &lt;strong&gt;A&lt;/strong&gt;, is new, whereas the others nodes, &lt;strong&gt;B&lt;/strong&gt;, &lt;strong&gt;C&lt;/strong&gt; and &lt;strong&gt;D&lt;/strong&gt; are stable, i.e. their coordinates have already been assigned and the distance between each other is also equal to the latency between each other.&lt;/p&gt;
+&lt;p&gt;Assume that the latency from &lt;strong&gt;A&lt;/strong&gt; to all the other nodes is equal, and that its desired position is at the centre of the triangle formed among the other nodes.&lt;/p&gt;
+&lt;p&gt;Now each of &lt;strong&gt;B&lt;/strong&gt;, &lt;strong&gt;C&lt;/strong&gt; and &lt;strong&gt;D&lt;/strong&gt; exerts a force on &lt;strong&gt;A&lt;/strong&gt; towards itself. The magnitude of each force is proportional to the difference between the real latency and the latency predicted by the co-ordinates. &lt;strong&gt;A&lt;/strong&gt; calculates the resultant force - the vector-sum of all these forces - and takes a small step in the direction of the resultant force. This process repeats, and &lt;strong&gt;A&lt;/strong&gt; moves towards the centre of the triangle.&lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;&lt;strong&gt;Centralized Algorithm&lt;/strong&gt;&lt;/p&gt;
+&lt;div id="two-d-viz-2" class="two-d-viz"&gt;&lt;/div&gt;
+&lt;p&gt;In the previous case, we only had to worry about one new node. In this case, all nodes start at the origin and in the first iteration, take a step in a random direction. They continue to follow the same principle as explained in the previous case and the nodes converge after a few iterations.&lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;&lt;strong&gt;Distributed Algorithm&lt;/strong&gt;&lt;/p&gt;
+&lt;div id="two-d-viz-3" class="two-d-viz"&gt;&lt;/div&gt;
+&lt;p&gt;In the previous two cases, each node communicated with all the other nodes before taking a step in the right direction(You can think of it as batched gradient descent). In this case, each node takes a step after communicating with a single node (as in stochastic gradient descent) and the algorithm continues to work!&lt;/p&gt;
+&lt;p&gt;Also, the nodes are added to the cluster in 6 stages. You can see that nodes move more aggresively when they're new and the measured latencies don't reflect the latency as measured by the coordinates. Also, once a node is stable enough, it isn't affected by the presence of newer nodes.&lt;/p&gt;
+&lt;p&gt;(The &lt;em&gt;height&lt;/em&gt; factor is not visualized since it is very small compared to the Euclidean coordinates)&lt;/p&gt;
+&lt;hr /&gt;
+&lt;h3&gt;Implementing Vivaldi in Elixir&lt;/h3&gt;
+&lt;p&gt;You can find the code on &lt;a href="https://github.com/pixyj/vivaldi"&gt;GitHub&lt;/a&gt;. I'll highlight how certain features of Elixir and Erlang/OTP helped prototype the algorithm quickly.&lt;/p&gt;
+&lt;h3&gt;Process Discovery&lt;/h3&gt;
+&lt;p&gt;There was no impedance-mismatch between local mode and distributed mode. In local mode, all the peers ran on my development machine. And in distributed node, the peers ran in different machines. I didn't have to write any low level networking code, or serialization/deserialization code.&lt;/p&gt;
+&lt;p&gt;Once I got the algorithm working on my machine, I spun up a bunch of nodes on AWS, Digital Ocean and Google Cloud Platform to test the algorithm and spent very little time debugging networking issues.&lt;/p&gt;
+&lt;p&gt;Each peer runs the following processes.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-elixir"&gt;1. Ping Client          :node-&amp;lt;id&amp;gt;-ping-client
+2. Ping Server          :node-&amp;lt;id&amp;gt;-ping-server
+3. Coordinate           :node-&amp;lt;id&amp;gt;-coordinate
+4. Coordinate Stash     :node-&amp;lt;id&amp;gt;-coordinate-stash
+5. Connections          :node-&amp;lt;id&amp;gt;-connections
+6. Coordinator          :node-&amp;lt;id&amp;gt;-coordinator
+7. Supervisor           :node-&amp;lt;id&amp;gt;-supervisor
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;PingClient&lt;/code&gt; - Periodically pings a random peer. When it receives a response, it forwards the peer's coordinates and the latency information to the &lt;code&gt;Coordinate&lt;/code&gt; process.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Coordinate&lt;/code&gt; - Updates the peer's coordinates using Vivaldi, and stores the values in the &lt;code&gt;CoordinateStash&lt;/code&gt; process.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;PingServer&lt;/code&gt; - Responds to a ping with the coordinates stored in CoordinateStash.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;CoordinateStash&lt;/code&gt; - Stores the latest version of the peer's coordinate.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Connections&lt;/code&gt; - Helps connect to another peer's PingServer (more on this later).&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Coordinator&lt;/code&gt; - Helps configure the peer during simulations.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Supervisor&lt;/code&gt; - Supervises all the above processes.  So, for example, if the &lt;code&gt;PingClient&lt;/code&gt; process goes down because another peer's &lt;code&gt;PingServer&lt;/code&gt; does not respond within a timeout, the supervisor just restarts the &lt;code&gt;PingClient&lt;/code&gt;, and I don't have to handle this error manually in the &lt;code&gt;PingClient&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;I assigned unique names to each process, where each process's name is prefixed by the &lt;code&gt;node_id&lt;/code&gt;. The processes communicate with each other using these names instead of explicitly using the &lt;code&gt;pid&lt;/code&gt;. In development mode, all the peers run on a single node, whereas in the distributed mode, each peer runs on a different node.&lt;/p&gt;
+&lt;p&gt;Only &lt;code&gt;PingServer&lt;/code&gt; needs to be visible across the network. So I made each &lt;code&gt;PingServer&lt;/code&gt;'s &lt;code&gt;pid&lt;/code&gt; globally visible using &lt;code&gt;:global.register_name&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-elixir"&gt;defmodule PingServer do
+  use GenServer
+
+  def init([{node_id, session_id}]) do
+    node_id
+    |&amp;gt; get_name()
+    |&amp;gt; :global.register_name(self)
+    {:ok, {node_id, session_id}}
+  end
+
+  def get_server_pid(node_id) do
+    node_id
+    |&amp;gt; get_name()
+    |&amp;gt; :global.whereis_name()
+  end
+
+  defp get_name(node_id) do
+    :&amp;quot;#{node_id}-ping-server&amp;quot;
+  end
+
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The Connections module helps discover &lt;code&gt;PingServer&lt;/code&gt; &lt;code&gt;pid&lt;/code&gt;s in distributed mode, It first connects to the peer, and then uses &lt;code&gt;:global.whereis_name&lt;/code&gt;, which relies on the underlying Erlang/OTP system to return the &lt;code&gt;PingServer&lt;/code&gt; pid.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-elixir"&gt;defmodule Connections do
+  use GenServer
+
+  def handle_call({:get_peer_ping_server_pid, peer_id}, _, config) do
+    case config[:local_mode?] do
+    true -&amp;gt;
+      get_local_ping_server_pid(peer_id, config)
+    false -&amp;gt;
+      get_remote_ping_server_pid(peer_id, config)
+    end
+  end
+
+  def get_local_ping_server_pid(peer_id, config) do
+    PingServer.get_server_pid(peer_id)
+  end
+
+  def get_remote_ping_server_pid(peer_id, config) do
+    peer_name = config[:peer_names][peer_id]
+    if peer_name in Node.list do
+      PingServer.get_server_pid(peer_id)
+    else
+      case Node.connect(peer_name) do
+        true -&amp;gt;
+          :timer.sleep(500)
+          PingServer.get_server_pid(peer_id)
+        _ -&amp;gt;
+          Logger.error(&amp;quot;Can not connect to #{peer_name}&amp;quot;)
+      end
+    end
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If you're a careful reader, you might have noticed how I slipped in a &lt;code&gt;:timer.sleep&lt;/code&gt; after &lt;code&gt;Node.connect&lt;/code&gt;. I added it as a quick hack since &lt;code&gt;:global.whereis_name&lt;/code&gt; returned &lt;code&gt;:undefined&lt;/code&gt; without the timeout. Sarat(&lt;a href="https://twitter.com/iamd3vil"&gt;@sarat&lt;/a&gt;) explained to me that the issue occurs because the OTP does takes a small amount of time to propagate global names across the cluster.&lt;/p&gt;
+&lt;hr /&gt;
+&lt;h3&gt;Running Simulations&lt;/h3&gt;
+&lt;p&gt;The default values recommend by Vivaldi and Serf are excellent. But you can tune these values based on your cluster. So I used an additional &lt;code&gt;Controller&lt;/code&gt; node which sends commands to configure peers.&lt;/p&gt;
+&lt;p&gt;Elixir's pipes came in really handy in modelling setup operations.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-elixir"&gt;defmodule Controller
+
+    def run(peers, base_config) do
+      peers
+      |&amp;gt; connect()
+      |&amp;gt; check_status(expected_status=:not_started)
+      |&amp;gt; generate_peer_configs(base_config)
+      |&amp;gt; send_command(:configure)
+      |&amp;gt; check_status(expected_status=:just_started)
+      |&amp;gt; send_command(:get_ready)
+      |&amp;gt; check_status(expected_status=:ready)
+      |&amp;gt; send_command(:begin_pings)
+    end
+
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Here the controller first connects to each peer, then checks if each peer is up, and then generates configuration information which contains the node_ids and IP addresses, and once again checks if the configuration is successful and so on.&lt;/p&gt;
+&lt;p&gt;(The Controller code on GitHub is not yet as simple, since this was the last part of the project, and I just wanted to get the system working at this point!)&lt;/p&gt;
+&lt;h3&gt;Pattern Matching and State Machines&lt;/h3&gt;
+&lt;p&gt;Each peer runs a Coordinator process which receives commands from the Controller. I modelled the Coordinator as a simple state machine. If you've ever done any UI programming, you'll have written code to prevent users from clicking a button continuously and performing their action more than once. Elixir (and Erlang's) pattern matching provides this feature for free.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-elixir"&gt;defmodule Coordinator do
+
+  def handle_call({:configure, config}, _, {:not_started, node_id}) do
+    # application logic
+    {:reply, :ok, {:just_started, [x, y, error]}}
+  end
+
+  def handle_call({:begin_pings}, _, {:just_started, {node_id}) do
+    # application logic
+    {:reply, :ok, {:pinging, [x, y, error]}}
+  end
+
+  def handle_call(:get_status, _, {status, {node_id}}) do
+    {:reply, {:ok, status}, {status, {node_id}}}
+  end
+
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The &lt;code&gt;Coordinator&lt;/code&gt; accepts the &lt;code&gt;:configure&lt;/code&gt; command only when it is in the &lt;code&gt;:not_started&lt;/code&gt; state, and then moves to the &lt;code&gt;:just_started state&lt;/code&gt;.  Similarly, it only accepts the &lt;code&gt;:begin_pings&lt;/code&gt; command when it is in the &lt;code&gt;:just_started&lt;/code&gt; state, and then moves to the &lt;code&gt;:pinging&lt;/code&gt; state.&lt;/p&gt;
+&lt;hr /&gt;
+&lt;h3&gt;Tooling&lt;/h3&gt;
+&lt;p&gt;Elixir has excellent tooling, considering it's a young language and ecosystem.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;The build tool, &lt;code&gt;mix&lt;/code&gt;, comes with support for unit testing out-of-the-box, which encouraged me to write unit tests from the beginning. Similarly, the &lt;code&gt;Logger&lt;/code&gt; package is also available by default.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;Hex&lt;/code&gt;, the package manager is integrated with &lt;code&gt;mix&lt;/code&gt; and is very easy to use as well.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Also, I loved interactive development using iex's &lt;code&gt;:recompile&lt;/code&gt; command.  I wish Python's &lt;code&gt;importlib.reload()&lt;/code&gt; function was just as intelligent.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;I faced issues in setting names and cookies to nodes dynamically. So I asked a StackOverflow question and quickly received an answer. I still had to resort to a couple of hacks to get the system working. But this was expected considering this was my first Elixir project, and mainly because I'm not familiar with Erlang's ecosystem.&lt;/p&gt;
+&lt;p&gt;Overall, I understood the appeal of Erlang/OTP in building distributed, soft real-time systems. This was also the first time I've used a functional programming language, and Elixir eased the learning curve. Praveen(&lt;a href="https://twitter.com/_wicliff"&gt;@praveen&lt;/a&gt;) explained how we don't have to use complex concepts in order to be productive with Elixir, and it resonated with me as well. I'm now looking forward to using Elixir in my upcoming projects!&lt;/p&gt;
+&lt;script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/animejs/1.1.3/anime.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="/static/vivaldi.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"&gt;&lt;/script&gt;
+&lt;script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/elixir.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;hljs.initHighlightingOnLoad();&lt;/script&gt;</description><guid>http://localhost:4444/blog/prototyping-vivaldi-a-simple-distributed-algorithm-in-elixir/</guid></item><item><title>Functions - First class objects in Python</title><link>http://localhost:4444/blog/functions-first-class-objects-in-python/</link><description>&lt;h4&gt;Why are functions considered first class objects in Python?&lt;/h4&gt;
 &lt;p&gt;Colloquially, Functions are considered as first class citizens in a programming language if:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;
