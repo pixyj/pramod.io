@@ -20,11 +20,24 @@
 
 .pixy-content {
   display: block;
-  margin-left: 10%;
-  margin-right: 10%;
-  width: 80%;
+  margin-left: 15%;
+  width: 60%;
   margin-bottom: 3rem;
   font-size: 16px;
+}
+
+@media(max-width: 768px) {
+  .pixy-content {
+    width: 90%;
+    margin-left: 5%;
+  }
+}
+
+@media(min-width: 769px) and (max-width: 992px) {
+  .pixy-content {
+    width: 80%;
+    margin-left: 10%;
+  }
 }
 
 /******************************** Vivaldi ************************************/
@@ -178,7 +191,10 @@ h5 {
 *
 ********************************************************************************/
 
-
+#projects-heading {
+  margin-top: 60px;
+  margin-bottom: 40px;
+}
 
 .project-name {
   margin-bottom: 16px;
@@ -203,6 +219,7 @@ h5 {
 
 #blog-post-title {
   margin-bottom: 12px;
+  margin-top: 70px;
 }
 
 #blog-post-content {

@@ -94,21 +94,22 @@
 <p>The authors found that Euclidean coordinates alone aren't good enough to model the Internet, so they added a <em>height</em> factor, to accommodate nodes that have high latencies to reach the Internet backbone.</p>
 <hr />
 <h3>Intuition</h3>
-<p>We'll build our intuition on how the co-ordinates are updated in 3 steps:</p>
-<p><strong>Forces in Action</strong></p>
+<p>We'll build our intuition on how the co-ordinates are updated in 3 steps.</p>
+<p><strong>1. Forces in Action</strong></p>
 <div id="two-d-viz-1" class="two-d-viz"></div>
 <p>Consider the above cluster with four nodes. The leftmost node, <strong>A</strong>, is new, whereas the others nodes, <strong>B</strong>, <strong>C</strong> and <strong>D</strong> are stable, i.e. their coordinates have already been assigned and the distance between each other is also equal to the latency between each other.</p>
 <p>Assume that the latency from <strong>A</strong> to all the other nodes is equal, and that its desired position is at the centre of the triangle formed among the other nodes.</p>
-<p>Now each of <strong>B</strong>, <strong>C</strong> and <strong>D</strong> exerts a force on <strong>A</strong> towards itself. The magnitude of each force is proportional to the difference between the real latency and the latency predicted by the co-ordinates. <strong>A</strong> calculates the resultant force - the vector-sum of all these forces - and takes a small step in the direction of the resultant force. This process repeats, and <strong>A</strong> moves towards the centre of the triangle.</p>
+<p>Now each of <strong>B</strong>, <strong>C</strong> and <strong>D</strong> exerts a force on <strong>A</strong> towards itself. The magnitude of each force is proportional to the difference between the real latency and the latency predicted by the co-ordinates. <strong>A</strong> calculates the resultant force — the vector-sum of all these forces — and takes a small step in the direction of the resultant force. This process repeats, and <strong>A</strong> moves towards the centre of the triangle.</p>
 <hr />
-<p><strong>Centralized Algorithm</strong></p>
+<p><strong>2. Centralized Algorithm</strong></p>
 <div id="two-d-viz-2" class="two-d-viz"></div>
-<p>In the previous case, we only had to worry about one new node. In this case, all nodes start at the origin and in the first iteration, take a step in a random direction. They continue to follow the same principle as explained in the previous case and the nodes converge after a few iterations.</p>
+<p>In the previous case, we only had to worry about one new node. In this case, all nodes are new and start at the origin. In the first iteration, each node takes a step in a random direction and continues to follow the same principle as explained in the previous case and the nodes converge after a few iterations.</p>
 <hr />
-<p><strong>Distributed Algorithm</strong></p>
+<p><strong>3. Distributed Algorithm</strong></p>
 <div id="two-d-viz-3" class="two-d-viz"></div>
-<p>In the previous two cases, each node communicated with all the other nodes before taking a step in the right direction(You can think of it as batched gradient descent). In this case, each node takes a step after communicating with a single node (as in stochastic gradient descent) and the algorithm continues to work!</p>
-<p>Also, the nodes are added to the cluster in 6 stages. You can see that nodes move more aggresively when they're new and the measured latencies don't reflect the latency as measured by the coordinates. Also, once a node is stable enough, it isn't affected by the presence of newer nodes.</p>
+<p>In the previous two cases, each node communicated with <em>all</em> the other nodes before taking a step in the right direction(You can think of it as batched gradient descent). In this case, each node takes a step after communicating with a single node (as in stochastic gradient descent) and the algorithm continues to work!</p>
+<p>In real-world scenarios, we often find all nodes don't join the cluster at the same point in time. Hence, in the above visualization, nodes are added to the cluster in 6 stages.</p>
+<p>You can see that nodes move more aggresively when they're new and the error rates are high. Once a node is stable enough, it isn't affected much by the presence of newer nodes.</p>
 <p>(The <em>height</em> factor is not visualized since it is very small compared to the Euclidean coordinates)</p>
 <hr />
 <h3>Implementing Vivaldi in Elixir</h3>
