@@ -11,16 +11,14 @@
         <div id="projects-content">
             {% for p in projects %}
                 <h2 class="project-name"> {{ p.name }} </h2>
-                <div>
-                    {% for tag_name in p.tag_names %}
-                        <ul class="project-tags">
-                            <li>{{ tag_name }}</li>
-                        </ul>
-                    {% endfor %}
-                </div>
                 <span class="blog-post-created-date project-timeline"> 
                     {{ p.start_date }} - {{ p.end_date }} 
                 </span>
+                <div class="project-tags">
+                    {% for tag_name in p.tag_names %}
+                    <div>{{ tag_name }}</div>
+                    {% endfor %}
+                </div>
                 <div class="project-description">
                     {{ p.html_description | safe}}
                 </div>

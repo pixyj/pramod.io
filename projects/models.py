@@ -3,11 +3,18 @@ from django.db import models
 from blog.models import Post
 
 
+class TagManager(models.Manager):
+    def get_queryset(self):
+        return super(TagManager, self).get_queryset().order_by('rank')
+
+
 class Tag(models.Model):
     name = models.CharField(max_length=100)
+    rank = models.FloatField(default=0)
+    objects = TagManager()
 
     def __str__(self):
-        return self.name
+        return '{} - {}'.format(self.name, self.rank)
 
 
 class Project(models.Model):
