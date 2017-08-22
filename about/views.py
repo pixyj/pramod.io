@@ -4,38 +4,57 @@ from blog.models import Post
 from home.views import cached_page
 
 ABOUT_ME = """
-I'm a web developer based in Bangalore, India. I love writing beautiful code and
+
+
+I'm a full-stack web developer based in Bangalore, India. I love writing beautiful code and
 building delightful products. [Here's my resume](https://www.visualcv.com/pramod-lakshmanan).
 
-I'm particularly passionate about making the process of learning more efficient
-and enjoyable through software and my side-projects are usually educational apps.
+I also make:
 
+```elixir
+Learning
+|> Effective
+|> Efficient
+|> Enjoyable
+```
 
-When I'm not coding or improving my CS and programming skills, you'll find me mentoring students, 
-playing basketball, cycling in and around the city, discovering new music or supporting Liverpool.
-
+When I'm not programming or improving my CS skills, you'll find me mentoring students, 
+playing badminton or basketball, cycling in and around the city, discovering new music and supporting Liverpool.
 
 You can find me on the Internet in these places:
 
-[GitHub](https://github.com/pixyj)
+<div class="about-social-links">
 
-[Twitter](https://twitter.com/pixyj)
+* [GitHub](https://github.com/pixyj)
 
-[Stack Overflow](http://www.stackoverflow.com/users/817277/pramod)
+* [Twitter](https://twitter.com/pixyj)
 
-[Quora](https://www.quora.com/profile/Pramod-Lakshmanan)
+* [Stack Overflow](http://www.stackoverflow.com/users/817277/pramod)
 
-________
+* [Quora](https://www.quora.com/profile/Pramod-Lakshmanan)
 
-**Trivia**
+</div>
 
-*Emacs or Vim:* Sublime Text in Vintage mode
 
-*React or Angular:* React, with ES6
+___________
 
-*Rails or Django:* Django. These "old" frameworks are still relevant.
+### Trivia
 
-*Heroku or App Engine:* Both!
+* <span class="about-trivia-item-name">Emacs or Vim:</span> Sublime Text in Vintage mode
+
+* <span class="about-trivia-item-name">Excited About:</span> WebGL, NLP, Elixir
+
+* <span class="about-trivia-item-name">React, Vue or Angular:</span> React, with ES2016/Babel
+
+* <span class="about-trivia-item-name">Django or Rails:</span> Django! These "old" frameworks are still relevant
+
+* <span class="about-trivia-item-name">Heroku or App Engine:</span> Both!
+
+* <span class="about-trivia-item-name">Coding Music:</span> Smooth Jazz, Trance
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/elixir.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
 """
 
 

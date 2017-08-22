@@ -11,9 +11,9 @@
         <div id="projects-content">
             {% for p in projects %}
                 <h2 class="project-name"> {{ p.name }} </h2>
-                <div class="project-tags">
+                <div>
                     {% for tag_name in p.tag_names %}
-                        <ul>
+                        <ul class="project-tags">
                             <li>{{ tag_name }}</li>
                         </ul>
                     {% endfor %}
