@@ -2,20 +2,35 @@
 
 /******************************** GLOBAL STUFF ************************/
 
+.base-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.base-nav a {
+  margin-top: 30px;
+  text-transform: uppercase;
+  color: #5E35B1;
+  font-weight: 600;
+  font-size: 14px;
+  padding-right: 20px;
+  padding-left: 20px;
+}
+
+.base-nav a:hover {
+  border-bottom: 4px solid #ff4081 !important;
+}
+
+.pixy-active-tab {
+  border-bottom: 4px solid #ff4081 !important;
+}
+
 .pixy-title {
   color: #311B92;
   text-decoration: none;
   font-weight: 500;
   font-style: italic;
-}
-
-
-.pixy-mobile-title {
-  color: white !important;
-}
-
-.pixy-active-tab {
-  border-bottom: 4px solid #ff4081 !important;
 }
 
 .pixy-content {
@@ -293,6 +308,7 @@ h5 {
 /************************** CONTACT AND ABOUT **********************************/
 
 #contact-content {
+  margin-top: 80px;
   margin-left: 20%;
   margin-right: 20%;
   min-height: 90vh;
