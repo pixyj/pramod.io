@@ -2,20 +2,35 @@
 
 /******************************** GLOBAL STUFF ************************/
 
+.base-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.base-nav a {
+  margin-top: 30px;
+  text-transform: uppercase;
+  color: #5E35B1;
+  font-weight: 600;
+  font-size: 14px;
+  padding-right: 20px;
+  padding-left: 20px;
+}
+
+.base-nav a:hover {
+  border-bottom: 4px solid #ff4081 !important;
+}
+
+.pixy-active-tab {
+  border-bottom: 4px solid #ff4081 !important;
+}
+
 .pixy-title {
   color: #311B92;
   text-decoration: none;
   font-weight: 500;
   font-style: italic;
-}
-
-
-.pixy-mobile-title {
-  color: white !important;
-}
-
-.pixy-active-tab {
-  border-bottom: 4px solid #ff4081 !important;
 }
 
 .pixy-content {
@@ -141,16 +156,8 @@ blockquote::after {
   height: auto;
 }
 
-/*h2 {
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-  font-size: 45px;
-  font-weight: 400;
-  line-height: 48px;
-  margin-top: 24px;
-  margin-bottom: 24px; }*/
-
 h2 {
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-family: 'Roboto Slab', serif;
   font-size: 34px;
   font-weight: 400;
   line-height: 40px;
@@ -158,7 +165,7 @@ h2 {
   margin-bottom: 24px; }
 
 h3 {
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-family: 'Roboto Slab', serif;
   font-size: 24px;
   font-weight: 400;
   line-height: 32px;
@@ -167,7 +174,7 @@ h3 {
   margin-bottom: 16px; }
 
 h4 {
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-family: 'Roboto Slab', serif;
   font-size: 20px;
   font-weight: 500;
   line-height: 1;
@@ -176,7 +183,7 @@ h4 {
   margin-bottom: 16px; }
 
 h5 {
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-family: 'Roboto Slab', serif;
   font-size: 16px;
   font-weight: 400;
   line-height: 24px;
@@ -192,12 +199,14 @@ h5 {
 ********************************************************************************/
 
 #projects-heading {
+  font-family: 'Roboto Slab', serif;
   margin-top: 60px;
   margin-bottom: 40px;
 }
 
 .project-name {
-  margin-bottom: 16px;
+  font-family: 'Roboto Slab', serif;
+  margin-bottom: 4px;
 }
 
 .project-timeline {
@@ -209,11 +218,31 @@ h5 {
   font-size: 1.2rem;
 }
 
+.project-tags {
+  margin-top: 16px;
+  display: flex;
+  flex-wrap: wrap;
+}
 
+.project-tags > div {
+  font-size: 14px;
+  padding: 3px 10px 3px 10px;
+  margin-right: 10px;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  border-radius: 6px;
+  color: white;
+  background: #ff4081;
+}
+
+.jedi-vid {
+  margin-bottom: 20px;
+}
 /************************** BLOG ***********************************************/
 
 #blog-feed-icon {
-  max-width: 40px;
+  max-width: 30px;
+  margin-top: 30px;
 }
 
 
@@ -276,21 +305,50 @@ h5 {
   font-size: 1rem;
   text-decoration: none;
   margin-top: 0.5rem;
+  font-family: 'Roboto Slab', serif;
 }
 
 
 /************************** CONTACT AND ABOUT **********************************/
 
 #contact-content {
+  margin-top: 80px;
   margin-left: 20%;
   margin-right: 20%;
   min-height: 90vh;
 }
 
 #about-content {
+  font-size: 18px;
   margin-top: 40px;
   min-height: 90vh;
 
+}
+
+.about-trivia-item-name {
+  font-family: 'Roboto Slab', serif;
+  font-weight: bold;
+}
+
+.about-social-links  ul {
+  list-style: none;
+}
+
+.about-social-links  li {
+  display: table-cell;
+}
+
+.about-social-links p {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+a {
+  color: #2196F3;
+}
+
+a:hover {
+  color: #673AB7;
 }
 
 /******************************** END OF MY STUFF *****************************************/
