@@ -3,6 +3,13 @@ from django.db import models
 from blog.models import Post
 
 
+class Tag(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
+
 class Project(models.Model):
     name = models.CharField(max_length=200)
     created = models.DateTimeField()
@@ -10,6 +17,7 @@ class Project(models.Model):
     end_date = models.CharField(max_length=20)
     description = models.TextField()
     is_published = models.BooleanField(default=True)
+    tags = models.ManyToManyField(Tag)
 
     @property
     def html_description(self):
