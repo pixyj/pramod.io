@@ -11,6 +11,13 @@
         <div id="projects-content">
             {% for p in projects %}
                 <h2 class="project-name"> {{ p.name }} </h2>
+                <div class="project-tags">
+                    {% for tag_name in p.tag_names %}
+                        <ul>
+                            <li>{{ tag_name }}</li>
+                        </ul>
+                    {% endfor %}
+                </div>
                 <span class="blog-post-created-date project-timeline"> 
                     {{ p.start_date }} - {{ p.end_date }} 
                 </span>

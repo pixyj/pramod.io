@@ -13,7 +13,9 @@ def projects(request):
     2. Render the response
     """
     heading_html = Post.md_to_html(HEADING)
-    projects = Project.objects.filter(is_published=True).order_by('-created')
+    projects = Project.objects.filter(is_published=True).order_by('-created').prefetch_related('tags')
+    for p in projects:
+        p.tag_names = [tag.name for tag in p.tags.all()]
     return render(request, 'projects.html', {
         "heading": heading_html,
         "projects": projects
