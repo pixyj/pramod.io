@@ -19,7 +19,7 @@ from django.contrib import admin
 from projects.views import projects
 from blog.views import get_blog_post, blog_home
 from contact.views import contact
-from about.views import about
+from about.views import about, keybase
 from blog.feeds import PostsFeed
 
 
@@ -28,6 +28,7 @@ urlpatterns = [
     url(r'^blog/(?P<slug>[\w\d\-]+)/$', get_blog_post),
     url(r'^blog/$', blog_home),
     url(r'^about/$', about),
+    url(r'^keybase.txt/$', keybase),
     url(r'^contact/$', contact),
     url(r'^rss/$', PostsFeed()),
     url(r'^$', projects)
