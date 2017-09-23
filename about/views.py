@@ -36,15 +36,15 @@ You can find me on the Internet in these places:
 
 <div class="about-social-links">
 
-    <span>[GitHub](https://github.com/pixyj)</span>
+<span>[GitHub](https://github.com/pixyj)</span>
 
-    <span>[Twitter](https://twitter.com/pixyj)</span>
+<span>[Twitter](https://twitter.com/pixyj)</span>
 
-    <span>[Stack Overflow](http://www.stackoverflow.com/users/817277/pramod)</span>
+<span>[Stack Overflow](http://www.stackoverflow.com/users/817277/pramod)</span>
 
-    <span>[Hacker News](news.ycombinator.com/user?id=pramodliv1)
+<span>[Hacker News](news.ycombinator.com/user?id=pramodliv1)
 
-    <span>[Quora](https://www.quora.com/profile/Pramod-Lakshmanan)</span>
+<span>[Quora](https://www.quora.com/profile/Pramod-Lakshmanan)</span>
 
 </div>
 
