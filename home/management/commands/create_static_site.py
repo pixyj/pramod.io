@@ -33,6 +33,9 @@ class Command(BaseCommand):
         # about
         self._url_to_file("{}/about/".format(host), "{}/about.html".
                           format(root_dir))
+        # keybase
+        self._url_to_file("{}/keybase.txt".format(host), "{}/keybase.txt".
+                          format(root_dir))
 
         # contact
         self._url_to_file("{}/contact/".format(host),
