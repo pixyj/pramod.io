@@ -42,7 +42,7 @@ You can find me on the Internet in these places:
 
 <span>[Stack Overflow](http://www.stackoverflow.com/users/817277/pramod)</span>
 
-<span>[Hacker News](news.ycombinator.com/user?id=pramodliv1)
+<span>[Hacker News](https://news.ycombinator.com/user?id=pramodliv1)
 
 <span>[Quora](https://www.quora.com/profile/Pramod-Lakshmanan)</span>
 
