@@ -8,6 +8,7 @@ def file_path_to_string(path):
         s = f.read()
     return s
 
+
 to_str = file_path_to_string
 
 
@@ -41,11 +42,12 @@ class About(webapp2.RequestHandler):
         cache_page(self.response)
         self.response.write(to_str('about.html'))
 
-    class About(webapp2.RequestHandler):
-        def get(self):
-            self.response.headers['Content-Type'] = 'plain/text'
-            cache_page(self.response)
-            self.response.write(to_str('keybase.txt'))
+
+class Keybase(webapp2.RequestHandler):
+    def get(self):
+        self.response.headers['Content-Type'] = 'plain/text'
+        cache_page(self.response)
+        self.response.write(to_str('keybase.txt'))
 
 
 class Contact(webapp2.RequestHandler):
@@ -80,6 +82,7 @@ app = webapp2.WSGIApplication([
     ('/', Main),
     ('/static/([\w\d\-\.]+)', Styles),
     ('/about/', About),
+    ('/keybase.txt', Keybase),
     ('/contact/', Contact),
     ('/blog/([\w\d\-]+)/', BlogPost),
     ('/blog/', BlogHome),
