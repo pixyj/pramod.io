@@ -31,20 +31,21 @@ When I'm not programming or improving my CS skills, you'll find me
 
 __________
 
-
 You can find me on the Internet in these places:
 
 <div class="about-social-links">
 
-<span>[GitHub](https://github.com/pixyj)</span>
+<span><img src="/static/icons/github.png" class="social-icon" />[pixyj](https://github.com/pixyj)</span>
 
-<span>[Twitter](https://twitter.com/pixyj)</span>
+<span><img src="/static/icons/twitter.png" class="social-icon" />[pixyj](https://twitter.com/pixyj)</span>
 
-<span>[Stack Overflow](http://www.stackoverflow.com/users/817277/pramod)</span>
+<span><img src="/static/icons/stackoverflow.ico" class="social-icon" />[Pramod](http://www.stackoverflow.com/users/817277/pramod)</span>
 
-<span>[Hacker News](https://news.ycombinator.com/user?id=pramodliv1)
+<span><img src="/static/icons/hn.ico" class="social-icon" />[pramodliv1](https://news.ycombinator.com/user?id=pramodliv1)</span>
 
-<span>[Quora](https://www.quora.com/profile/Pramod-Lakshmanan)</span>
+
+<span><img src="/static/icons/quora.png" class="social-icon" />[Pramod Lakshmanan](quora.com/pramod-lakshmanan)</span>
+
 
 </div>
 

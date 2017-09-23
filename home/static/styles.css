@@ -330,18 +330,16 @@ h5 {
   font-weight: bold;
 }
 
-.about-social-links  ul {
-  list-style: none;
+.about-social-links > span {
+  line-height: 24px;
 }
 
-.about-social-links  li {
-  display: table-cell;
+.social-icon {
+  height: 24px;
+  width: 24px;
+  margin-right: 10px;
 }
 
-.about-social-links p {
-  display: inline-block;
-  margin-right: 20px;
-}
 
 a {
   color: #2196F3;
