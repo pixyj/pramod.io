@@ -41,6 +41,12 @@ class About(webapp2.RequestHandler):
         cache_page(self.response)
         self.response.write(to_str('about.html'))
 
+    class About(webapp2.RequestHandler):
+        def get(self):
+            self.response.headers['Content-Type'] = 'plain/text'
+            cache_page(self.response)
+            self.response.write(to_str('keybase.txt'))
+
 
 class Contact(webapp2.RequestHandler):
     def get(self):
