@@ -15,6 +15,7 @@ class Command(BaseCommand):
             os.system('rm -r {}'.format(output_dir))
             os.mkdir(output_dir)
 
+
     def _url_to_file(self, url, file_path):
         response = requests.get(url)
         html_binary_string = response.content
@@ -68,3 +69,18 @@ class Command(BaseCommand):
         for f in files:
             self._url_to_file("{}/static/{}/".format(host, f),
                               "{}/static/{}".format(root_dir, f))
+
+        # icons
+        os.mkdir('{}/static/icons'.format(root_dir))
+        files = [
+            'github.png',
+            'hn.ico',
+            'pythonic-trans.png',
+            'quora.png'
+            'stackoverflow.ico',
+            'twitter.png'
+        ]
+        for f in files:
+            self._url_to_file(
+                '{}/static/icons/{}'.format(host, f),
+                '{}/static/icons/{}'.format(root_dir, f)),
