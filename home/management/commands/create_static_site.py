@@ -84,3 +84,10 @@ class Command(BaseCommand):
             self._url_to_file(
                 '{}/static/icons/{}'.format(host, f),
                 '{}/static/icons/{}'.format(root_dir, f)),
+
+        # bg
+        self._url_to_file(
+            '{}/static/bg.jpg/'.format(host),
+            '{}/static/bg.jpg'.format(root_dir)
+        )
+
