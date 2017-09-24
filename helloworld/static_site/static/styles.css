@@ -2,6 +2,21 @@
 
 /******************************** GLOBAL STUFF ************************/
 
+/* https://stackoverflow.com/a/8566338/817277 */
+.bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/static/bg.jpg');
+    background-repeat: repeat;
+    background-attachment: fixed;
+    background-size: 100%;
+    opacity: 0.7;
+    filter:alpha(opacity=70);
+}
+
 .base-nav {
   display: flex;
   flex-wrap: wrap;
@@ -39,6 +54,7 @@
   width: 60%;
   margin-bottom: 3rem;
   font-size: 16px;
+  opacity: 1;
 }
 
 @media(max-width: 768px) {
@@ -62,6 +78,7 @@
   box-sizing: border-box;
   margin-bottom: 20px;
   margin-top: 20px;
+  background: #ffffff;
 }
 
 .legend-item {
@@ -330,18 +347,16 @@ h5 {
   font-weight: bold;
 }
 
-.about-social-links  ul {
-  list-style: none;
+.about-social-links > span {
+  line-height: 24px;
 }
 
-.about-social-links  li {
-  display: table-cell;
+.social-icon {
+  height: 24px;
+  width: 24px;
+  margin-right: 10px;
 }
 
-.about-social-links p {
-  display: inline-block;
-  margin-right: 20px;
-}
 
 a {
   color: #2196F3;
@@ -350,6 +365,7 @@ a {
 a:hover {
   color: #673AB7;
 }
+
 
 /******************************** END OF MY STUFF *****************************************/
 
