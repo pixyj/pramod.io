@@ -76,9 +76,9 @@ class Command(BaseCommand):
             'github.png',
             'hn.ico',
             'pythonic-trans.png',
-            'quora.png'
+            'quora.png',
             'stackoverflow.ico',
-            'twitter.png'
+            'twitter.png',
         ]
         for f in files:
             self._url_to_file(
