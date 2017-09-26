@@ -5,12 +5,11 @@ from blog.models import Post
 from home.views import cached_page
 
 ABOUT_ME = """
-
-
 I'm a full-stack web developer based in Bangalore, India. I love writing beautiful code to
 build delightful products. [Here's my resume](https://stackoverflow.com/users/story/817277?view=Cv).
 
 I also make:
+<div class="motto">
 
 ```elixir
 Learning
@@ -18,7 +17,10 @@ Learning
  ▶ Efficient
  ▶ Enjoyable
 ```
-___________
+
+</div>
+
+__________
 
 When I'm not programming or improving my CS skills, you'll find me 
 
@@ -27,8 +29,6 @@ When I'm not programming or improving my CS skills, you'll find me
 * Cycling in and around the city
 * Discovering new music
 * Supporting Liverpool.
-
-
 __________
 
 You can find me on the Internet in these places:
@@ -54,7 +54,7 @@ ___________
 
 ### Trivia
 
-* <span class="about-trivia-item-name">Emacs or Vim:</span> Sublime Text 3 in Vintage mode. (Yes I finally paid the license!)
+* <span class="about-trivia-item-name">Emacs or Vim:</span> Sublime Text 3 in Vintage mode. (Yes I finally paid for the license!)
 
 * <span class="about-trivia-item-name">Excited About:</span> WebGL, NLP, Elixir, CoffeeScript 2.0
 
@@ -157,4 +157,3 @@ def about(request):
 @cached_page(seconds=3600)
 def keybase(request):
     return HttpResponse(KEYBASE_TXT, content_type='text/plain')
-
