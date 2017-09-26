@@ -36,6 +36,18 @@ class Styles(webapp2.RequestHandler):
         self.response.write(to_str('static/{}'.format(file_name)))
 
 
+class Icons(webapp2.RequestHandler):
+    def get(self, file_name):
+        extension = file_name.split(".")[1]
+        if extension == 'svg':
+            content_type = 'image/x-icon'
+        else:
+            content_type = 'image/{}'.format(extension)
+        self.response.headers['Content-Type'] = content_type
+        cache_page(self.response)
+        self.response.write(to_str('static/icons/{}'.format(file_name)))
+
+
 class About(webapp2.RequestHandler):
     def get(self):
         self.response.headers['Content-Type'] = 'text/html'
@@ -81,6 +93,7 @@ class RSS(webapp2.RequestHandler):
 app = webapp2.WSGIApplication([
     ('/', Main),
     ('/static/([\w\d\-\.]+)', Styles),
+    ('/static/icons/([\w\d\-\.]+)', Icons),
     ('/about/', About),
     ('/keybase.txt', Keybase),
     ('/contact/', Contact),
