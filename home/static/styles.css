@@ -344,7 +344,7 @@ h5 {
 
 .about-trivia-item-name {
   font-family: 'Roboto Slab', serif;
-  font-weight: bold;
+  color: #2196f3;
 }
 
 .about-social-links > span {
@@ -364,6 +364,11 @@ a {
 
 a:hover {
   color: #673AB7;
+}
+
+.motto > pre > code {
+  background-color: #fe5991;
+  color: white;
 }
 
 
