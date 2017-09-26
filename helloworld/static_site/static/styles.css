@@ -344,11 +344,20 @@ h5 {
 
 .about-trivia-item-name {
   font-family: 'Roboto Slab', serif;
-  font-weight: bold;
+  color: #2196f3;
 }
 
 .about-social-links > span {
   line-height: 24px;
+}
+
+.about-social-links > ul {
+  padding: 0;
+  list-style-type: none;
+}
+
+.about-social-links > ul > li {
+  margin-bottom: 0.5em;
 }
 
 .social-icon {
@@ -364,6 +373,21 @@ a {
 
 a:hover {
   color: #673AB7;
+}
+
+.motto > pre > code {
+  background-color: #fe5991;
+  color: white;
+}
+
+.motto > pre {
+  padding-left: 0em;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+}
+
+.about-fun {
+  margin-top: ;
 }
 
 
