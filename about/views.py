@@ -32,31 +32,22 @@ When I'm not programming or improving my CS skills, you'll find me
 __________
 
 You can find me on the Internet in these places:
+<div class='about-social-links'>
 
-<div class="about-social-links">
-
-<span><img src="/static/icons/github.png" class="social-icon" />[pixyj](https://github.com/pixyj)</span>
-
-<span><img src="/static/icons/twitter.png" class="social-icon" />[pixyj](https://twitter.com/pixyj)</span>
-
-<span><img src="/static/icons/stackoverflow.ico" class="social-icon" />[Pramod](http://www.stackoverflow.com/users/817277/pramod)</span>
-
-<span><img src="/static/icons/hn.ico" class="social-icon" />[pramodliv1](https://news.ycombinator.com/user?id=pramodliv1)</span>
-
-
-<span><img src="/static/icons/quora.png" class="social-icon" />[Pramod Lakshmanan](quora.com/pramod-lakshmanan)</span>
-
+* <img src="/static/icons/github.png" class="social-icon" /> [pixyj](https://github.com/pixyj)
+* <img src="/static/icons/twitter.png" class="social-icon" /> [pixyj](https://twitter.com/pixyj)
+* <img src="/static/icons/stackoverflow.ico" class="social-icon" /> [Pramod](http://www.stackoverflow.com/users/817277/pramod)
+* <img src="/static/icons/hn.ico" class="social-icon" /> [pramodliv1](https://news.ycombinator.com/user?id=pramodliv1)
+* <img src="/static/icons/quora.png" class="social-icon" /> [Pramod Lakshmanan](quora.com/pramod-lakshmanan)
 
 </div>
-
-
 ___________
 
 ### Trivia
 
-* <span class="about-trivia-item-name">Emacs or Vim:</span> Sublime Text 3 in Vintage mode. (Yes I finally paid for the license!)
+* <span class="about-trivia-item-name">Emacs or Vim:</span> Sublime Text 3 in Vintage mode. (Yes, I finally paid for a license!)
 
-* <span class="about-trivia-item-name">Excited About:</span> WebGL, NLP, Elixir, CoffeeScript 2.0
+* <span class="about-trivia-item-name">Excited About:</span> NLP, WebGL, Elixir, CoffeeScript 2.0
 
 * <span class="about-trivia-item-name">React, Vue or Angular:</span> React, with ES2015/Babel. (I do miss my first love, `Backbone.js`)
 
@@ -68,7 +59,7 @@ ___________
 
 * <span class="about-trivia-item-name">Tabs or Spaces:</span> 4 Spaces for Python, 2 spaces for JS and Elixir
 
-* <span class="about-trivia-item-name">SQL Or NoSQL</span> v1. SQL + Redis; v2. NoSQL if necessary.
+* <span class="about-trivia-item-name">SQL Or NoSQL</span> **v1.** SQL + Redis; **v2.** NoSQL if necessary.
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/elixir.min.js"></script>

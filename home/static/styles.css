@@ -351,6 +351,15 @@ h5 {
   line-height: 24px;
 }
 
+.about-social-links > ul {
+  padding: 0;
+  list-style-type: none;
+}
+
+.about-social-links > ul > li {
+  margin-bottom: 0.5em;
+}
+
 .social-icon {
   height: 24px;
   width: 24px;
