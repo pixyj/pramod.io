@@ -41,7 +41,8 @@ You can find me on the Internet in these places:
 * <img src="/static/icons/quora.png" class="social-icon" /> [Pramod Lakshmanan](quora.com/pramod-lakshmanan)
 
 </div>
-___________
+
+<hr />
 
 ### Trivia
 
@@ -49,17 +50,12 @@ ___________
 
 * <span class="about-trivia-item-name">Excited About:</span> NLP, WebGL, Elixir, CoffeeScript 2.0
 
-* <span class="about-trivia-item-name">React, Vue or Angular:</span> React, with ES2015/Babel. (I do miss my first love, `Backbone.js`)
+* <span class="about-trivia-item-name">React, Vue or Angular:</span> `ES2015/Babel`, with a sprinkling of React (I do miss my first love, `Backbone.js`)
 
-* <span class="about-trivia-item-name">Django or Rails:</span> Django! These "old" frameworks are still relevant.
+* <span class="about-trivia-item-name">Django or Rails:</span> Django! These "old" frameworks are still relevant
 
-* <span class="about-trivia-item-name">Heroku or App Engine:</span> Both! But for different use cases.
-
-* <span class="about-trivia-item-name">Coding Music:</span> Smooth Jazz, Trance, Relaxing music on YouTube
 
 * <span class="about-trivia-item-name">Tabs or Spaces:</span> 4 Spaces for Python, 2 spaces for JS and Elixir
-
-* <span class="about-trivia-item-name">SQL Or NoSQL</span> **v1.** SQL + Redis; **v2.** NoSQL if necessary.
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/elixir.min.js"></script>
